@@ -29,9 +29,10 @@ function getCars() {
 
 function login() {
   APIService.ApiLogin(name.value, pw.value).then(response => {
-        userDataStore.authenticated = true;
+        userDataStore.isAuthenticated = true;
         userDataStore.token = response.token;
-        userDataStore.roles = response.roles;
+        // userDataStore.role = response.roles; todo
+        userDataStore.role = 3;
         loadPage();
       }
   )
@@ -97,7 +98,11 @@ function increment() {
 </template>
 
 <style>
-.login, .wrapper, .debug, .get, .pages {
+.wrapper {
+  height: 100%;
+  width: 100dvw;
+}
+.login,.debug, .get, .pages {
   display: flex;
   flex-direction: column;
 }

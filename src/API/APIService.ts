@@ -25,8 +25,9 @@ export default class APIService {
             return await respone.json() as LoginResponseDTO; // as unknown as LoginResponseDTO
         } else {
             console.log("I have cancer")
+            return;
         }
-    };
+    }
 
     public static async getCars(token: string) {
         console.log("Running getCards");
