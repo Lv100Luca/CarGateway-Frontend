@@ -4,6 +4,7 @@ import {useUserDataStore} from "@/stores/userDataStore";
 import {ref} from "vue";
 import {getHighestRole, Role} from "@/components/models/Role";
 import {useRouter} from "vue-router";
+import {useRoute} from "vue-router";
 
 const userDataStore = useUserDataStore();
 
