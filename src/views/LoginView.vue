@@ -3,11 +3,14 @@ import APIService from "@/API/APIService";
 import {useUserDataStore} from "@/stores/userDataStore";
 import {ref} from "vue";
 import {getHighestRole, Role} from "@/components/models/Role";
+import {useRouter} from "vue-router";
 
 const userDataStore = useUserDataStore();
 
 const username = ref("");
 const password = ref("");
+
+const router = useRouter();
 
 function login() {
   APIService.ApiLogin(username.value, password.value).then(response => { //todo put somewhere
@@ -16,7 +19,9 @@ function login() {
     userDataStore.role = getHighestRole(response!.roles);
     userDataStore.isAuthenticated = true;
     userDataStore.token = response!.token;
-  })
+  });
+
+  router.push("/")
 }
 </script>
 
