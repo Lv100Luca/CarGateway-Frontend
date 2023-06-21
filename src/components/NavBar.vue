@@ -36,8 +36,7 @@ const menuItemsRight = computed<MenuItem[]>(() => {
 
   if (user.isAuthenticated && user.role > 0) {
     items.push({
-      // label: user.username, todo switch to name of logged in user
-      label: "Your Account Name",
+      label: user.username,
       to: {
         name: "account"
       }
