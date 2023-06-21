@@ -12,17 +12,17 @@ const route = useRoute();
 const menuItemsRight = computed<MenuItem[]>(() => {
   const items: MenuItem[] = [];
 
-  const noReturnRoutes = [
-    "home",
-    "login",
-    "logout",
-    "forgot-password",
-    "not-found",
-  ] as RouteRecordName[];
-  const currentReturnQuery: LocationQueryRaw = {};
-  if (!noReturnRoutes.includes(route.name ?? "not-found")) {
-    currentReturnQuery["return"] = route.fullPath;
-  }
+  // const noReturnRoutes = [
+  //   "home",
+  //   "login",
+  //   "logout",
+  //   "forgot-password",
+  //   "not-found",
+  // ] as RouteRecordName[];
+  // const currentReturnQuery: LocationQueryRaw = {};
+  // if (!noReturnRoutes.includes(route.name ?? "not-found")) {
+  //   currentReturnQuery["return"] = route.fullPath;
+  // }
   if (user.isAuthenticated && user.role == 3) {
     //adminpanel
     items.push({
