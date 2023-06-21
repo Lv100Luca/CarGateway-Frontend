@@ -3,6 +3,8 @@ import {ref, watch} from "vue";
 import {useUserDataStore} from "@/stores/userDataStore";
 import APIService from "@/API/APIService";
 import type GetCarsResponseDTO from "@/DTO/GetCarsResponseDTO";
+import {useRouter} from "vue-router";
+
 
 const name = ref();
 const pw = ref();
@@ -12,7 +14,7 @@ const listOfCarsPages = ref<GetCarsResponseDTO[]>([]);
 const nrOfElementsOnPage = ref(5);
 const nrOfPage = ref(0);
 const nrOfTotalElements = ref(4);
-
+const router = useRouter();
 watch(nrOfElementsOnPage, () => {
   nrOfPage.value = 0;
 });
