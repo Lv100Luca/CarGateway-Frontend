@@ -5,6 +5,12 @@ import type GetCarsWithPagesResponseDTO from "@/DTO/GetCarsWithPagesResponseDTO"
 export default class APIService {
 
     private static readonly url = "http://localhost:8080";
+    private static _token: string | null = null;
+
+
+    static set token(value: string | null) {
+        this._token = value;
+    }
 
     public static async ApiLogin(username: string, password: string) {
         console.log("Running LOGIN")
@@ -68,4 +74,13 @@ export default class APIService {
         }
     }
 
+    public static async getJson<T>(url: string) {
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+
+            }
+        })
+
+    }
 }
