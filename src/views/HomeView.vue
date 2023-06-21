@@ -29,17 +29,6 @@ function getCars() {
   })
 }
 
-function login() {
-  APIService.ApiLogin(name.value, pw.value).then(response => {
-        userDataStore.isAuthenticated = true;
-        userDataStore.token = response.token;
-        // userDataStore.role = response.roles; todo
-        userDataStore.role = 3;
-        loadPage();
-      }
-  )
-}
-
 function loadPage() {
   if (nrOfTotalElements.value == -1 || nrOfTotalElements.value / nrOfElementsOnPage.value > nrOfPage.value) {
     APIService.getPageWithSize(userDataStore.token, nrOfPage.value, nrOfElementsOnPage.value).then(response => {
@@ -70,11 +59,7 @@ function increment() {
 
 <template>
   <div class="wrapper">
-    <div class="login">
-      <input type="text" placeholder="name:" v-model="name">
-      <input type="password" placeholder="password:" v-model="pw">
-      <input type="button" value="Login" @click="login()">
-    </div>
+    <button @click="router.push('/admin')">ToAdmin</button>
     <div class="debug">
       <pre>{{ userDataStore }}</pre>
     </div>
