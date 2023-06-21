@@ -37,8 +37,18 @@ async function login() {
 
 <template>
   <div class="page">
+
     <div class="login">
       <h1 class="title">Login</h1>
+      <div>
+        <select v-model="username">
+          <option disabled value="">Please select one</option>
+          <option>RedditAdminJoe</option>
+          <option>AverageEmployeeJames</option>
+          <option>LoyalUserJim</option>
+          <option>NoneJustin</option>
+        </select>
+      </div>
       <label class="text-label">
         Username:
         <input v-model="username" type="text" class="username">
