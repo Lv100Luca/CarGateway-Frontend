@@ -11,17 +11,26 @@ const username = ref("");
 const password = ref("");
 
 const router = useRouter();
+const route = useRoute();
 
-function login() {
+async function login() {
   APIService.ApiLogin(username.value, password.value).then(response => { //todo put somewhere
     userDataStore.username = response!.username;
     userDataStore.id = response!.id;
     userDataStore.role = getHighestRole(response!.roles);
     userDataStore.isAuthenticated = true;
     userDataStore.token = response!.token;
-  });
 
-  router.push("/")
+    const returnRoute = route.query.return;
+
+    if (typeof returnRoute === "string") {
+      console.log("Pushing to " + returnRoute.replace("/",""));
+       router.push(returnRoute.replace("/","")); // fixme
+      return;
+    }
+     router.push("/")
+  }); // ask timings???
+
 }
 </script>
 
