@@ -5,6 +5,7 @@ import type GetCarsWithPagesResponseDTO from "@/DTO/GetCarsWithPagesResponseDTO"
 export default class APIService {
 
     private static readonly url = "http://localhost:8080";
+    // private static readonly url = "http://172.31.1.23:8080";
     private static _token: string | null = null;
 
 
@@ -55,8 +56,8 @@ export default class APIService {
 
     public static async getPageWithSize(token: string, pageNr: number, pageSize: number) {
         console.log("Running getPage: page: " + pageNr + " / items: " + pageSize);
-        const response = await fetch("http://localhost:8080/fahrzeuge?pagenr=0&pagesize=10", {
-        // const response = await fetch(this.url + "/fahrzeuge?pagenr=0&pagesize=10", {
+        // const response = await fetch("http://localhost:8080/fahrzeuge?pagenr=0&pagesize=10", {
+        const response = await fetch(this.url + "/fahrzeuge?pagenr="+ pageNr + "&pagesize=" + pageSize, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
