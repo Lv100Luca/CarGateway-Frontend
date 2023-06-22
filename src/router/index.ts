@@ -1,8 +1,13 @@
 import {createRouter, createWebHistory} from 'vue-router'
+// @ts-ignore
 import HomeView from "@/views/HomeView.vue";
+// @ts-ignore
 import LoginView from "@/views/LoginView.vue";
+// @ts-ignore
 import AdminView from "@/views/AdminView.vue";
+// @ts-ignore
 import AccountView from "@/views/AccountView.vue";
+// @ts-ignore
 import LogoutView from "@/views/LogoutView.vue";
 import {Role} from "@/components/models/Role";
 
