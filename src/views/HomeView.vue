@@ -4,6 +4,7 @@ import {useUserDataStore} from "@/stores/userDataStore";
 import APIService from "@/API/APIService";
 import type GetCarsResponseDTO from "@/DTO/GetCarsResponseDTO";
 import {useRouter} from "vue-router";
+import type GetCarsWithPagesResponseDTO from "@/DTO/GetCarsWithPagesResponseDTO";
 
 
 const name = ref();
@@ -15,6 +16,7 @@ const nrOfElementsOnPage = ref(5);
 const nrOfPage = ref(0);
 const nrOfTotalElements = ref(4);
 const router = useRouter();
+let response = ref<GetCarsResponseDTO[]>([]);
 watch(nrOfElementsOnPage, () => {
   nrOfPage.value = 0;
 });
@@ -23,9 +25,19 @@ watch(nrOfPage, () => {
   loadPage();
 })
 
-function getCars() {
-  APIService.getCars(userDataStore.token).then(response => {
-    listOfCars.value = response;
+// function getCars() {
+//   APIService.getPageWithSize(userDataStore.token, 0, 5).then(response => {
+//     listOfCars.value = response.content;
+//     console.log(response.nrOfTotalElements)
+//   })
+// }
+async function getCars() {
+  APIService.getCarByName(userDataStore.token, "Rindbrumm the Striking Dragon").then(result => {
+      response.value = result.content
+  })
+
+  APIService.getPageWithSize(userDataStore.token, 0 , 5).then(result => {
+    listOfCars.value = result.content
   })
 }
 
@@ -66,6 +78,7 @@ function increment() {
     <div class="get">
       <input type="button" value="get Cars" @click="getCars()">
       <pre>{{ listOfCars }}</pre>
+      <pre>{{ response }}</pre>
     </div>
     <div class="pages">
       <pre>{{ listOfCarsPages }}</pre>

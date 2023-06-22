@@ -55,7 +55,7 @@ async function login() {
       </label>
       <label class="text-label">
         Password:
-        <input v-model="password" type="password" class="password">
+        <input @keydown.enter="login()" v-model="password" type="password" class="password">
       </label>
       <input @click="login()" type="button" value="Login" class="login-button">
     </div>

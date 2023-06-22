@@ -55,17 +55,15 @@ export default class APIService {
 
     public static async getPageWithSize(token: string, pageNr: number, pageSize: number) {
         console.log("Running getPage: page: " + pageNr + " / items: " + pageSize);
-        const response = await fetch(this.url + "/fahrzeuge", {
-            method: "POST",
+        const response = await fetch("http://localhost:8080/fahrzeuge?pagenr=0&pagesize=10", {
+        // const response = await fetch(this.url + "/fahrzeuge?pagenr=0&pagesize=10", {
+            method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': 'Bearer ' + token,
-            },
-            body: JSON.stringify({
-                pageNR: pageNr,
-                pageSize: pageSize
-            })
+            }
         })
+        console.log("ran fetch" + response.status)
         if (response.ok) {
             console.log("Response OK");
             return await response.json() as GetCarsWithPagesResponseDTO;
@@ -74,12 +72,24 @@ export default class APIService {
         }
     }
 
+    public static async getCarByName(token: string, name: string) {
+        const response = await fetch(this.url + "/fahrzeuge/name/" + name, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + token,
+            }
+        });
+        if (response.ok) {
+
+            return await response.json() as GetCarsWithPagesResponseDTO;
+        }
+    }
+
     public static async getJson<T>(url: string) {
         const response = await fetch(url, {
             method: "GET",
-            headers: {
-
-            }
+            headers: {}
         })
 
     }
