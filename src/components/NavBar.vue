@@ -5,7 +5,7 @@ import {useUserDataStore} from "@/stores/userDataStore";
 import {LocationQueryRaw, RouteRecordName, useRoute} from "vue-router";
 
 
-const user = useUserDataStore();
+const userDataStore = useUserDataStore();
 const route = useRoute();
 
 
@@ -23,7 +23,7 @@ const menuItemsRight = computed<MenuItem[]>(() => {
   // if (!noReturnRoutes.includes(route.name ?? "not-found")) {
   //   currentReturnQuery["return"] = route.fullPath;
   // }
-  if (user.isAuthenticated && user.role == 3) {
+  if (userDataStore.hasUser && userDataStore.role == 3) {
     //adminpanel
     items.push({
       label: "Admin",
@@ -34,15 +34,15 @@ const menuItemsRight = computed<MenuItem[]>(() => {
   }
 
 
-  if (user.isAuthenticated) {
+  if (userDataStore.hasUser) {
     items.push({
-      label: user.username,
+      label: userDataStore.username,
       to: {
         name: "account"
       }
     })
   }
-  if (!user.isAuthenticated && user.role == 0) {
+  if (!userDataStore.hasUser && userDataStore.role == 0) {
     items.push({
       label: "Login",
       to: {
@@ -50,9 +50,9 @@ const menuItemsRight = computed<MenuItem[]>(() => {
       }
     })
   }
-  if (user.isAuthenticated) {
+  if (userDataStore.hasUser) {
     items.push({
-      label: "Logot",
+      label: "Logout",
       to: {
         //todo
         name: "logout"
@@ -71,8 +71,8 @@ const menuItemsRight = computed<MenuItem[]>(() => {
         <RouterLink to="/" class="logo-wrapper">
           <a class="logo"/>
         </RouterLink>
-        <label>{{ user.role }}</label>
-        <label>{{ user.isAuthenticated }}</label>
+        <label>{{ userDataStore.role }}</label>
+        <label>{{ userDataStore.hasUser }}</label>
       </div>
       <div class="nav-right">
         <RouterLink

@@ -19,7 +19,7 @@ const nrOfTotalElements = ref(4);
 const router = useRouter();
 let response = ref<GetCarsResponseDTO[]>([]);
 onMounted(async () => {
-  if (userDataStore.isAuthenticated) {
+  if (userDataStore.hasUser) {
     loadPage();
   }
 })
@@ -31,12 +31,12 @@ watch(nrOfPage, () => {
   loadPage();
 })
 
-function getCars() {
-  APIService.getPageWithSize(userDataStore.token, nrOfPage.value, nrOfElementsOnPage.value).then(response => {
-    listOfCars.value = response.content;
-    console.log(response.nrOfTotalElements)
-  })
-}
+// function getCars() {
+//   APIService.getPageWithSize(userDataStore.token, nrOfPage.value, nrOfElementsOnPage.value).then(response => {
+//     listOfCars.value = response.content;
+//     console.log(response.nrOfTotalElements)
+//   })
+// }
 
 
 // function loadPage() {
@@ -50,12 +50,11 @@ function getCars() {
 
 function loadPage() {
   const endpoint = "/fahrzeuge?pagenr=" + nrOfPage.value + "&pagesize=" + nrOfElementsOnPage.value;
-  if (true) {
-    APIClient.getRequest<GetCarsWithPagesResponseDTO>(endpoint, true).then(response => {
-      listOfCarsPages.value = response.content;
-      nrOfTotalElements.value = response.nrOfTotalElements;
-    })
-  }
+  APIClient.getRequest<GetCarsWithPagesResponseDTO>(endpoint, true).then(response => {
+    listOfCarsPages.value = response.content;
+    nrOfTotalElements.value = response.nrOfTotalElements;
+  })
+
 }
 
 function decrement() {
@@ -81,7 +80,7 @@ function increment() {
       <pre>{{ userDataStore }}</pre>
     </div>
     <div class="get">
-      <input disabled="disabled" type="button" value="get Cars" @click="getCars()">
+<!--      <input type="button" value="get Cars" @click="getCars()">-->
       <pre>{{ listOfCars }}</pre>
     </div>
     <div class="pages">

@@ -3,30 +3,18 @@ import {useUserDataStore} from "@/stores/userDataStore";
 import {getHighestRole, Role} from "@/components/models/Role";
 import {useRouter} from "vue-router";
 import {onMounted} from "vue";
+import APIClient from "@/API/APIClient";
 
 const userDataStore = useUserDataStore();
 const router = useRouter();
 
 onMounted(async () => {
-  if (userDataStore.isAuthenticated) {
-    await logout();
+  if (userDataStore.hasUser) {
+    userDataStore.logout();
     console.log("Logged Out User")
+    await router.push("/")
   }
 })
-
-async function resetState() {
-  userDataStore.username = "";
-  userDataStore.id = -1;
-  userDataStore.role = Role.none;
-  userDataStore.isAuthenticated = false;
-  userDataStore.token = "";
-}
-
-async function logout() {
-
-  await resetState();
-  await router.push("/")
-}
 </script>
 
 <template>

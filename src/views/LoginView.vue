@@ -17,47 +17,26 @@ const password = ref("admin");
 const router = useRouter();
 const route = useRoute();
 
-async function login() {
-  APIService.ApiLogin(username.value, password.value).then(response => { //todo put somewhere
-    userDataStore.username = response!.username;
-    userDataStore.id = response!.id;
-    userDataStore.role = getHighestRole(response!.roles);
-    userDataStore.isAuthenticated = true;
-    userDataStore.token = response!.token;
 
+async function handleLogin() {
+  let loginSuccess: boolean = false;
+  loginSuccess = await userDataStore.login(username.value, password.value);
+  console.log(loginSuccess)
+  if (loginSuccess) {
     const returnRoute = route.query.return;
 
     if (typeof returnRoute === "string") {
-      console.log("Pushing to " + returnRoute.replace("/",""));
-       router.push(returnRoute.replace("/","")); // fixme
+      console.log("Pushing to " + returnRoute.replace("/", ""));
+      await router.push(returnRoute.replace("/", "")); // fixme
       return;
     }
-     router.push("/")
-  }); // ask timings???
 
-}
-async function login2() {
-  APIClient.postRequest<LoginDTO, LoginResponseDTO>(
-      "/user/login",
-      false,
-      {"username": username.value, "password": password.value}
-  ).then(response => {
-    userDataStore.username = response!.username;
-    userDataStore.id = response!.id;
-    userDataStore.role = getHighestRole(response!.roles);
-    userDataStore.isAuthenticated = true;
-    userDataStore.token = response!.token;
-    APIClient.token = response.token;
+    await router.push("/")
+    return;
+  } else {
+    console.log("User/Password wrong")
+  }
 
-    const returnRoute = route.query.return;
-
-    if (typeof returnRoute === "string") {
-      console.log("Pushing to " + returnRoute.replace("/",""));
-      router.push(returnRoute.replace("/","")); // fixme
-      return;
-    }
-    router.push("/")
-  }); // ask timings???
 }
 </script>
 
@@ -81,9 +60,9 @@ async function login2() {
       </label>
       <label class="text-label">
         Password:
-        <input @keydown.enter="login2()" v-model="password" type="password" class="password">
+        <input @keydown.enter="handleLogin()" v-model="password" type="password" class="password">
       </label>
-      <input @click="login2()" type="button" value="Login" class="login-button">
+      <input @click="handleLogin()" type="button" value="Login" class="login-button">
     </div>
   </div>
 </template>

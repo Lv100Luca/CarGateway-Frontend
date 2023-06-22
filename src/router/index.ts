@@ -70,7 +70,7 @@ const router = createRouter({
 router.beforeEach(async (to, from) => {
   const userData = useUserDataStore();
   const role = userData.role;
-  const isAuth = userData.isAuthenticated;
+  const isAuth = userData.hasUser;
 
   if (to.meta.minimumRole > role && !isAuth) {
     console.log("Blocked Route to: " + to.path)
