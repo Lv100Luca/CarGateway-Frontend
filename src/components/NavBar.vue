@@ -34,7 +34,7 @@ const menuItemsRight = computed<MenuItem[]>(() => {
   }
 
 
-  if (user.isAuthenticated && user.role > 0) {
+  if (user.isAuthenticated) {
     items.push({
       label: user.username,
       to: {
@@ -50,7 +50,7 @@ const menuItemsRight = computed<MenuItem[]>(() => {
       }
     })
   }
-  if (user.isAuthenticated && user.role > 0) {
+  if (user.isAuthenticated) {
     items.push({
       label: "Logot",
       to: {
