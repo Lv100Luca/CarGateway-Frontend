@@ -44,20 +44,21 @@ export const useUserDataStore = defineStore('UserDataStore', () => {
     }
 
     async function fetchSelf() {
+        console.log("Fetching Self")
         const response = await APIClient.getRequest<UserResponseDTO>("/user/self", true);
-            if (response == undefined) {
-                console.log("Error Fetching self")
-                return false;
-            } else {
-                console.log(response.rollen)
-                id.value = response.id;
-                username.value = response.username;
-                vorname.value = response.vorname;
-                nachname.value = response.nachname
-                // role.value = 3;
-                role.value = getHighestRole(response.rollen);
-                hasUser.value = true;
-                return true;
+        if (response == undefined) {
+            console.log("Error Fetching self")
+            return false;
+        } else {
+            console.log(response.rollen)
+            id.value = response.id;
+            username.value = response.username;
+            vorname.value = response.vorname;
+            nachname.value = response.nachname
+            // role.value = 3;
+            role.value = getHighestRole(response.rollen);
+            hasUser.value = true;
+            return true;
         }
     }
 
