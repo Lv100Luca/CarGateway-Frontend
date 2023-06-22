@@ -5,11 +5,14 @@ import {ref} from "vue";
 import {getHighestRole, Role} from "@/components/models/Role";
 import {useRouter} from "vue-router";
 import {useRoute} from "vue-router";
+import APIClient from "@/API/APIClient";
+import type LoginDTO from "@/DTO/LoginDTO";
+import type LoginResponseDTO from "@/DTO/LoginResponseDTO";
 
 const userDataStore = useUserDataStore();
 
 const username = ref("");
-const password = ref("");
+const password = ref("admin");
 
 const router = useRouter();
 const route = useRoute();
@@ -33,6 +36,25 @@ async function login() {
   }); // ask timings???
 
 }
+async function login2() {
+  APIClient.postRequest<LoginDTO, LoginResponseDTO>("/user/login", false, {"username": username.value, "password": password.value}).then(response => {
+    userDataStore.username = response!.username;
+    userDataStore.id = response!.id;
+    userDataStore.role = getHighestRole(response!.roles);
+    userDataStore.isAuthenticated = true;
+    userDataStore.token = response!.token;
+    APIClient.token = response.token;
+
+    const returnRoute = route.query.return;
+
+    if (typeof returnRoute === "string") {
+      console.log("Pushing to " + returnRoute.replace("/",""));
+      router.push(returnRoute.replace("/","")); // fixme
+      return;
+    }
+    router.push("/")
+  }); // ask timings???
+}
 </script>
 
 <template>
@@ -55,9 +77,9 @@ async function login() {
       </label>
       <label class="text-label">
         Password:
-        <input @keydown.enter="login()" v-model="password" type="password" class="password">
+        <input @keydown.enter="login2()" v-model="password" type="password" class="password">
       </label>
-      <input @click="login()" type="button" value="Login" class="login-button">
+      <input @click="login2()" type="button" value="Login" class="login-button">
     </div>
   </div>
 </template>
