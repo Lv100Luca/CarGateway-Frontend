@@ -1,0 +1,55 @@
+export type Body = any;
+export default class APIClient {
+    private static _token: string | null = null;
+    private static _baseURL = "http://localhost:8080";
+    // private static _baseURL = "http://172.31.1.23:8080";
+
+    static get baseURL(): string {
+        return this._baseURL;
+    }
+
+    static set token(token: string | null) {
+        this._token = token;
+    }
+
+    static get token(): string | null {
+        return this._token;
+    }
+
+    private static getAuthHeader() {
+        return {
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + (this.token),
+        }
+    }
+
+    private static getEmptyHeader() {
+        return {"Content-Type": "application/json"}
+    }
+
+    public static async getRequest<TResponse>(endpoint: string, requireAuth: boolean) {
+        console.log("Running Get at: " + endpoint)
+        const response = await fetch(this.baseURL + endpoint, {
+            method: "GET",
+            headers: (requireAuth ? this.getAuthHeader() : this.getEmptyHeader()) //todo: make method
+        });
+        if (response.ok) {
+            return await response.json() as TResponse;
+        }
+        //todo: error handling
+        else console.log("Error in getRequest at endpoint: " + endpoint)
+    }
+
+    public static async postRequest<TRequest extends Body, TResponse>(endpoint: string, requireAuth: boolean, body: TRequest) {
+        const response = await fetch(this.baseURL + endpoint, {
+            method: "POST",
+            headers: (requireAuth ? this.getAuthHeader() : this.getEmptyHeader()), //todo: make method
+            body: JSON.stringify(body), // jsonify body object
+        });
+        if (response.ok) { // todo: more response cases
+            return await response.json() as TResponse;
+        }
+        //todo: error handling
+        else console.log("Error in postRequest at endpoint: " + endpoint);
+    }
+}
