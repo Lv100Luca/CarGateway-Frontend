@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import {ref, watch} from "vue";
+import {onMounted, ref, watch} from "vue";
 import {useUserDataStore} from "@/stores/userDataStore";
 import APIService from "@/API/APIService";
 import type GetCarsResponseDTO from "@/DTO/GetCarsResponseDTO";
 import {useRouter} from "vue-router";
+import APIClient from "@/API/APIClient";
 import type GetCarsWithPagesResponseDTO from "@/DTO/GetCarsWithPagesResponseDTO";
 
 
@@ -12,11 +13,14 @@ const pw = ref();
 const userDataStore = useUserDataStore();
 const listOfCars = ref<GetCarsResponseDTO[]>([]);
 const listOfCarsPages = ref<GetCarsResponseDTO[]>([]);
-const nrOfElementsOnPage = ref(5);
+const nrOfElementsOnPage = ref(1);
 const nrOfPage = ref(0);
 const nrOfTotalElements = ref(4);
 const router = useRouter();
 let response = ref<GetCarsResponseDTO[]>([]);
+onMounted(async () => {
+  loadPage();
+})
 watch(nrOfElementsOnPage, () => {
   nrOfPage.value = 0;
 });
@@ -25,36 +29,30 @@ watch(nrOfPage, () => {
   loadPage();
 })
 
-// function getCars() {
-//   APIService.getPageWithSize(userDataStore.token, 0, 5).then(response => {
-//     listOfCars.value = response.content;
-//     console.log(response.nrOfTotalElements)
-//   })
-// }
-async function getCars() {
-  APIService.getCarByName(userDataStore.token, "Rindbrumm the Striking Dragon").then(result => {
-      response.value = result.content
-  })
-
-  APIService.getPageWithSize(userDataStore.token, 0 , 5).then(result => {
-    listOfCars.value = result.content
+function getCars() {
+  APIService.getPageWithSize(userDataStore.token, nrOfPage.value, nrOfElementsOnPage.value).then(response => {
+    listOfCars.value = response.content;
+    console.log(response.nrOfTotalElements)
   })
 }
 
-function loadPage() {
-  if (nrOfTotalElements.value == -1 || nrOfTotalElements.value / nrOfElementsOnPage.value > nrOfPage.value) {
-    APIService.getPageWithSize(userDataStore.token, nrOfPage.value, nrOfElementsOnPage.value).then(response => {
-      listOfCarsPages.value = response.content;
-      nrOfTotalElements.value = response.nrOfTotalElements;
-    });
-    // console.log("Loading page")
-  } else {
 
-    console.log("YOU ARE BANNED")
-    console.log(nrOfTotalElements.value / nrOfElementsOnPage.value);
-    console.log(nrOfElementsOnPage.value);
-    console.log(nrOfTotalElements.value);
-    console.log(nrOfPage.value)
+// function loadPage() {
+//   if (nrOfTotalElements.value == -1 || nrOfTotalElements.value / nrOfElementsOnPage.value > nrOfPage.value) {
+//     APIService.getPageWithSize(userDataStore.token, nrOfPage.value, nrOfElementsOnPage.value).then(response => {
+//       listOfCarsPages.value = response.content;
+//       nrOfTotalElements.value = response.nrOfTotalElements;
+//     });
+//   }
+// }
+
+function loadPage() {
+  const endpoint = "/fahrzeuge?pagenr="+ nrOfPage.value + "&pagesize=" + nrOfElementsOnPage.value;
+  if (true) {
+    APIClient.getRequest<GetCarsWithPagesResponseDTO>(endpoint, true).then(response => {
+      listOfCarsPages.value = response.content;
+      nrOfElementsOnPage.value = response.nrOfTotalElements;
+    })
   }
 }
 
@@ -65,7 +63,9 @@ function decrement() {
 }
 
 function increment() {
-  nrOfPage.value++;
+  if (nrOfElementsOnPage.value * (nrOfPage.value + 1) < nrOfTotalElements.value) {
+    nrOfPage.value++;
+  }
 }
 </script>
 
@@ -76,9 +76,8 @@ function increment() {
       <pre>{{ userDataStore }}</pre>
     </div>
     <div class="get">
-      <input type="button" value="get Cars" @click="getCars()">
+      <input disabled="disabled" type="button" value="get Cars" @click="getCars()">
       <pre>{{ listOfCars }}</pre>
-      <pre>{{ response }}</pre>
     </div>
     <div class="pages">
       <pre>{{ listOfCarsPages }}</pre>
@@ -102,7 +101,8 @@ function increment() {
   height: 100%;
   width: 100dvw;
 }
-.login,.debug, .get, .pages {
+
+.login, .debug, .get, .pages {
   display: flex;
   flex-direction: column;
 }
