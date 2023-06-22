@@ -38,7 +38,7 @@ export const useUserDataStore = defineStore('UserDataStore', () => {
         id.value = -1;
         username.value = "";
         vorname.value = "";
-        username.value = "";
+        nachname.value = "";
         role.value = Role.none;
         hasUser.value = false;
     }
