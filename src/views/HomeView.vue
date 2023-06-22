@@ -19,7 +19,9 @@ const nrOfTotalElements = ref(4);
 const router = useRouter();
 let response = ref<GetCarsResponseDTO[]>([]);
 onMounted(async () => {
-  loadPage();
+  if (userDataStore.isAuthenticated) {
+    loadPage();
+  }
 })
 watch(nrOfElementsOnPage, () => {
   nrOfPage.value = 0;
@@ -47,23 +49,26 @@ function getCars() {
 // }
 
 function loadPage() {
-  const endpoint = "/fahrzeuge?pagenr="+ nrOfPage.value + "&pagesize=" + nrOfElementsOnPage.value;
+  const endpoint = "/fahrzeuge?pagenr=" + nrOfPage.value + "&pagesize=" + nrOfElementsOnPage.value;
   if (true) {
     APIClient.getRequest<GetCarsWithPagesResponseDTO>(endpoint, true).then(response => {
       listOfCarsPages.value = response.content;
-      nrOfElementsOnPage.value = response.nrOfTotalElements;
+      nrOfTotalElements.value = response.nrOfTotalElements;
     })
   }
 }
 
 function decrement() {
   if (nrOfPage.value != 0) {
+    console.log("Decrement")
     nrOfPage.value--;
   }
 }
 
 function increment() {
-  if (nrOfElementsOnPage.value * (nrOfPage.value + 1) < nrOfTotalElements.value) {
+  console.log("Increment: " + nrOfElementsOnPage.value + "*" + (nrOfPage.value + 1) + "<" + nrOfTotalElements.value)
+  if ((nrOfElementsOnPage.value * (nrOfPage.value + 1)) < nrOfTotalElements.value) {
+
     nrOfPage.value++;
   }
 }
@@ -82,9 +87,9 @@ function increment() {
     <div class="pages">
       <pre>{{ listOfCarsPages }}</pre>
       <div class="selector">
-        <input type="button" value="" @click="decrement()">
+        <input type="button" value="-" @click="decrement()">
         <label>{{ nrOfPage + 1 }}</label>
-        <input type="button" value="" @click="increment()">
+        <input type="button" value="+" @click="increment()">
         <select v-model="nrOfElementsOnPage" @change="nrOfPage=0" :disabled="true">
           <option disabled value="">Please select one</option>
           <option>1</option>

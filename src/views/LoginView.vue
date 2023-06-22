@@ -37,7 +37,11 @@ async function login() {
 
 }
 async function login2() {
-  APIClient.postRequest<LoginDTO, LoginResponseDTO>("/user/login", false, {"username": username.value, "password": password.value}).then(response => {
+  APIClient.postRequest<LoginDTO, LoginResponseDTO>(
+      "/user/login",
+      false,
+      {"username": username.value, "password": password.value}
+  ).then(response => {
     userDataStore.username = response!.username;
     userDataStore.id = response!.id;
     userDataStore.role = getHighestRole(response!.roles);
