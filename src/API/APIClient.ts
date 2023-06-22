@@ -1,7 +1,9 @@
 export type Body = any;
+const tokenKey = "token";
 export default class APIClient {
     private static _token: string | null = null;
     private static _baseURL = "http://localhost:8080";
+
     // private static _baseURL = "http://172.31.1.23:8080";
 
     static get baseURL(): string {
@@ -9,10 +11,18 @@ export default class APIClient {
     }
 
     static set token(token: string | null) {
+        if (token !== null) {
+            localStorage.setItem(tokenKey, token);
+        } else {
+            localStorage.removeItem(tokenKey);
+        }
         this._token = token;
     }
 
     static get token(): string | null {
+        if (this._token === null) {
+            this._token = localStorage.getItem(tokenKey);
+        }
         return this._token;
     }
 
