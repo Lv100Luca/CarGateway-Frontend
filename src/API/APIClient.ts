@@ -50,7 +50,7 @@ export default class APIClient {
         else console.log("Error in getRequest at endpoint: " + endpoint)
     }
 
-    public static async postRequest<TRequest extends Body, TResponse>(endpoint: string, requireAuth: boolean, body: TRequest) {
+    public static async postRequest<TBody extends Body, TResponse>(endpoint: string, requireAuth: boolean, body: TBody) {
         const response = await fetch(this.baseURL + endpoint, {
             method: "POST",
             headers: (requireAuth ? this.getAuthHeader() : this.getEmptyHeader()), //todo: make method
@@ -61,5 +61,14 @@ export default class APIClient {
         }
         //todo: error handling
         else console.log("Error in postRequest at endpoint: " + endpoint);
+    }
+
+    public static async patchRequest<TBody extends Body>(endpoint: string, requireAuth: boolean, body: TBody) {
+        const response = await fetch(this.baseURL + endpoint, {
+            method: "PATCH",
+            headers: (requireAuth ? this.getAuthHeader() : this.getEmptyHeader()), //todo: make method
+            body: JSON.stringify(body), // jsonify body object
+        });
+        return response.ok;
     }
 }
