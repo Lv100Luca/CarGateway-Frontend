@@ -4,7 +4,11 @@ import {ref} from "vue";
 
 const emits = defineEmits(["PageNr"]);
 const props = defineProps({
-  pageLimit: Number,
+  pageLimit: {
+    type: Number,
+    required: true,
+    default: 5
+  },
 })
 const pageNr = ref(0);
 
