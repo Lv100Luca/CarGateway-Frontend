@@ -74,7 +74,7 @@ const router = createRouter({
     ]
 });
 
-router.beforeEach(async (to, from) => {
+router.beforeEach(async (to) => {
     const userData = useUserDataStore();
     // const user = userData.user;
     const user = await userData.fetchSelf();

@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import {useUserDataStore} from "@/stores/userDataStore";
 import {onMounted, ref, watch} from "vue";
 import type UserResponseDTO from "@/DTO/UserResponseDTO";
 import APIClient from "@/API/APIClient";
 import type UserListResponseDTO from "@/DTO/UserListResponseDTO";
 import UserDisplayItem from "@/components/UserDisplayItem.vue";
 import PageSelector from "@/components/PageSelector.vue";
-
-const userData = useUserDataStore();
 
 const users = ref<UserResponseDTO[]>();
 const selectedUser = ref();

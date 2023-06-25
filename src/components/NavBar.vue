@@ -2,13 +2,10 @@
 import {computed} from "vue";
 import type MenuItem from "@/components/models/MenuItem";
 import {useUserDataStore} from "@/stores/userDataStore";
-import {useRoute} from "vue-router";
 import {getHighestRole} from "@/components/models/Role";
 
 
 const userDataStore = useUserDataStore();
-const route = useRoute();
-
 
 const menuItemsRight = computed<MenuItem[]>(() => {
   const items: MenuItem[] = [];

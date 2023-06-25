@@ -16,7 +16,7 @@ async function updateUser() {
         "nachname": user.nachname,
         "rollen": user.rollen
       } as UserResponseDTO
-  ); //todo change how this works maybe | maybe make changes here drectly effect logged in User
+  ); //todo change how this works maybe | maybe make changes here directly effect logged in User
   if (response) {
     console.log("Name Changed, fetching self")
     await userData.fetchSelf();

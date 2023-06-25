@@ -73,7 +73,7 @@ console.log()
   width: 20vw;
 }
 
-.debug, .get, .pages {
+.debug, .pages {
   display: flex;
   flex-direction: column;
 }
