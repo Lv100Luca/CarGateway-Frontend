@@ -1,13 +1,8 @@
 <script setup lang="ts">
-import APIService from "@/API/APIService";
 import {useUserDataStore} from "@/stores/userDataStore";
 import {ref} from "vue";
-import {getHighestRole, Role} from "@/components/models/Role";
 import {useRouter} from "vue-router";
 import {useRoute} from "vue-router";
-import APIClient from "@/API/APIClient";
-import type LoginDTO from "@/DTO/LoginDTO";
-import type LoginResponseDTO from "@/DTO/LoginResponseDTO";
 
 const userDataStore = useUserDataStore();
 
@@ -19,7 +14,7 @@ const route = useRoute();
 
 
 async function handleLogin() {
-  let loginSuccess: boolean = false;
+  let loginSuccess: boolean;
   loginSuccess = await userDataStore.login(username.value, password.value);
   console.log(loginSuccess)
   if (loginSuccess) {
