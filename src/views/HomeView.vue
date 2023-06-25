@@ -62,8 +62,11 @@ console.log()
                       @PageNr="args => nrOfPage = args"></PageSelector>
       </div>
     </div>
-    <UserDisplayItem v-if="userDataStore.hasUser" class="user-display" :user="userDataStore.user"
+    <UserDisplayItem class="user-display" v-if="userDataStore.hasUser" :user="userDataStore.user"
                      @userID="id => console.log(id)"></UserDisplayItem>
+    <br>
+    <CarDisplayItem class="car-display" v-for="car in listOfCarsPages" :car="car"
+                    @carID="id => console.log(id)"></CarDisplayItem>
   </div>
 </template>
 
@@ -82,7 +85,7 @@ console.log()
   flex-direction: column;
 }
 
-.user-display {
+.user-display, .car-display {
   display: flex;
   width: 40vw;
 }
