@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type UserResponseDTO from "@/DTO/UserResponseDTO";
-import {getRoleStringFromRoleArraySoThatTobiStopsCryingAboutIt} from "./models/Role";
+import {getHighestRole} from "./models/Role";
 
 const props = defineProps({
   user: {
@@ -11,7 +11,7 @@ const props = defineProps({
 const emits = defineEmits(['userID']);
 </script>
 <template>
-  <div class="wrapper" @click="$emit('userID', props.user!.id)">
+  <div class="wrapper" @click="emits('userID', props.user!.id)">
     <div class="left">
       <h1>{{ props.user!.id }}</h1>
     </div>
@@ -19,7 +19,8 @@ const emits = defineEmits(['userID']);
     <div class="right">
       <div class="role-bottom">
         <h3>{{ props.user!.username }}</h3>
-        <h3>{{ getRoleStringFromRoleArraySoThatTobiStopsCryingAboutIt(props.user!.rollen) }}</h3>
+<!--        <h3>{{ getRoleStringFromRoleArraySoThatTobiStopsCryingAboutIt(props.user!.rollen) }}</h3>-->
+        <h3>{{getHighestRole(user.rollen)}}</h3>
       </div>
       <a class="h-border"/>
       <div class="name-top">
@@ -31,7 +32,7 @@ const emits = defineEmits(['userID']);
 </template>
 <style scoped>
 .wrapper {
-  border: gray 2px solid;
+  border: gray 3px solid;
   border-radius: 10px;
   display: flex;
   flex-direction: row;
@@ -41,6 +42,7 @@ const emits = defineEmits(['userID']);
 .left {
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 25%;
   height: 100%;
 }
@@ -59,12 +61,11 @@ const emits = defineEmits(['userID']);
 }
 
 .v-border {
-  height: 100%;
-  border-right: gray 1px solid;
+  border-right: gray 2px solid;
 }
 
 .h-border {
-  border-top: gray 1px solid;
+  border-top: gray 2px solid;
 }
 
 
