@@ -44,6 +44,7 @@ function decrement() {
 
 .page-nr {
   width: 60%;
+text-align: center;
 }
 
 .wrapper > * {

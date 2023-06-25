@@ -2,20 +2,18 @@
 import {onMounted, ref, watch} from "vue";
 import {useUserDataStore} from "@/stores/userDataStore";
 import type GetCarsResponseDTO from "@/DTO/GetCarsResponseDTO";
-import {useRouter} from "vue-router";
 import APIClient from "@/API/APIClient";
 import type GetCarsWithPagesResponseDTO from "@/DTO/GetCarsWithPagesResponseDTO";
 import PageSelector from "@/components/PageSelector.vue";
 import UserDisplayItem from "@/components/UserDisplayItem.vue";
+import CarDisplayItem from "@/components/CarDisplayItem.vue";
 
 
 const userDataStore = useUserDataStore();
-const listOfCars = ref<GetCarsResponseDTO[]>([]);
 const listOfCarsPages = ref<GetCarsResponseDTO[]>([]);
-const nrOfElementsOnPage = ref(1);
+const nrOfElementsOnPage = ref(2);
 const nrOfPage = ref(0);
 const nrOfTotalElements = ref(4);
-const router = useRouter();
 
 const pageLimit = ref((nrOfTotalElements.value / nrOfElementsOnPage.value) - 1);
 
@@ -47,13 +45,8 @@ console.log()
 
 <template>
   <div class="wrapper">
-    <label>{{ nrOfPage }}</label>
-    <button @click="router.push('/admin')">ToAdmin</button>
     <div class="debug">
       <!--      <pre>{{ userDataStore }}</pre>-->
-    </div>
-    <div class="get">
-      <pre>{{ listOfCars }}</pre>
     </div>
     <div class="pages">
       <pre>{{ listOfCarsPages }}</pre>
