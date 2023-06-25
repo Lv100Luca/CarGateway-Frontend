@@ -74,7 +74,7 @@ const menuItemsRight = computed<MenuItem[]>(() => {
   </nav>
 </template>
 
-<style>
+<style scoped>
 nav {
   position: fixed;
   top: 0;

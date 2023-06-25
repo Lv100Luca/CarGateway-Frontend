@@ -20,6 +20,6 @@ onMounted(async () => {
 <template>
   <h1>Logout</h1>
 </template>
-<style>
+<style scoped>
 
 </style>
