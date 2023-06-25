@@ -6,7 +6,6 @@ import type LoginDTO from "@/DTO/LoginDTO";
 import type LoginResponseDTO from "@/DTO/LoginResponseDTO";
 import type UserResponseDTO from "@/DTO/UserResponseDTO";
 import type UserDataStoreStare from "@/components/models/UserDataStoreStare";
-// todo move login logic here
 export const useUserDataStore = defineStore('UserDataStore', () => {
     // const id = ref(-1);
     // const username = ref("");

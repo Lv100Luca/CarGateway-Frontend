@@ -23,7 +23,7 @@ const router = createRouter({
         //         onlyGuest: true
         //     }
         //
-        // }, todo implkement later maybe???
+        // }, todo add welcome page to register
         {
             path: '/',
             name: 'home',

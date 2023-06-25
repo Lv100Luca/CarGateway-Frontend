@@ -44,7 +44,6 @@ const menuItemsRight = computed<MenuItem[]>(() => {
     items.push({
       label: "Logout",
       to: {
-        //todo
         name: "logout"
       }
     })

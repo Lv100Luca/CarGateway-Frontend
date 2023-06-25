@@ -53,7 +53,6 @@ async function updateUser() {
           <input type="text" v-model="user.nachname">
         </label>
       </div>
-<!--      Todo: Convert RoleID into String-->
       <label class="role" style="display: flex; flex-direction: column">Role:
         <input disabled="disabled" type="text" :value="getRoleStringFromRoleArraySoThatTobiStopsCryingAboutIt(user.rollen)">
       </label>
