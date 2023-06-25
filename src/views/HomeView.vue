@@ -65,8 +65,8 @@ console.log()
     </div>
     <UserDisplayItem v-if="userDataStore.hasUser" class="user-display" :id="userDataStore.user.id"
                      :username="userDataStore.user.username" :role="userDataStore.user.rollen"
-                     :vorname="userDataStore.user.vorname" :nachname="userDataStore.user.nachname"
-    @userID="id => console.log(id)"></UserDisplayItem>
+                     :vorname="userDataStore.user.vorname" :nachname="userDataStore.user.nachname" :user="userDataStore.user"
+                     @userID="id => console.log(id)"></UserDisplayItem>
   </div>
 </template>
 
