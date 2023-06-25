@@ -26,7 +26,7 @@ function decrement() {
 <template>
   <div class="wrapper">
     <input class="button" :disabled="(pageNr <= 0)" type="button" value="-" @click="decrement()">
-    <input class="page-nr" disabled="disabled" type="text" :value="pageNr + 1">
+    <input class="page-nr" disabled="disabled" type="text" :value="(pageNr + 1) + ' / ' + (Math.ceil(pageLimit) + 1)">
     <input class="button" :disabled="(pageNr >= props.pageLimit)" type="button" value="+" @click="increment()">
   </div>
 </template>
@@ -35,14 +35,17 @@ function decrement() {
 .wrapper {
   display: flex;
   flex-direction: row;
-//width: 100%;
+  height: 100%;
 }
+
 .button {
   width: 20%;
 }
+
 .page-nr {
   width: 60%;
 }
+
 .wrapper > * {
 }
 </style>

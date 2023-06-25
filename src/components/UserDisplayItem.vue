@@ -35,12 +35,14 @@ const emits = defineEmits(['userID']);
   border-radius: 10px;
   display: flex;
   flex-direction: row;
+  height: 4rem;
 }
 
 .left {
   display: flex;
   justify-content: center;
   width: 25%;
+  height: 100%;
 }
 
 .right {
@@ -57,11 +59,13 @@ const emits = defineEmits(['userID']);
 }
 
 .v-border {
+  height: 100%;
   border-right: gray 1px solid;
 }
 
 .h-border {
   border-top: gray 1px solid;
 }
+
 
 </style>
