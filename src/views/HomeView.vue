@@ -50,7 +50,7 @@ console.log()
     <label>{{ nrOfPage }}</label>
     <button @click="router.push('/admin')">ToAdmin</button>
     <div class="debug">
-<!--      <pre>{{ userDataStore }}</pre>-->
+      <!--      <pre>{{ userDataStore }}</pre>-->
     </div>
     <div class="get">
       <!--      <input type="button" value="get Cars" @click="getCars()">-->
