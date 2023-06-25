@@ -6,6 +6,8 @@ import type GetCarsResponseDTO from "@/DTO/GetCarsResponseDTO";
 import {useRouter} from "vue-router";
 import APIClient from "@/API/APIClient";
 import type GetCarsWithPagesResponseDTO from "@/DTO/GetCarsWithPagesResponseDTO";
+import PageSelector from "@/components/PageSelector.vue";
+import UserDisplayItem from "@/components/UserDisplayItem.vue";
 
 
 const name = ref();
@@ -31,22 +33,6 @@ watch(nrOfPage, () => {
   loadPage();
 })
 
-// function getCars() {
-//   APIService.getPageWithSize(userDataStore.token, nrOfPage.value, nrOfElementsOnPage.value).then(response => {
-//     listOfCars.value = response.content;
-//     console.log(response.nrOfTotalElements)
-//   })
-// }
-
-
-// function loadPage() {
-//   if (nrOfTotalElements.value == -1 || nrOfTotalElements.value / nrOfElementsOnPage.value > nrOfPage.value) {
-//     APIService.getPageWithSize(userDataStore.token, nrOfPage.value, nrOfElementsOnPage.value).then(response => {
-//       listOfCarsPages.value = response.content;
-//       nrOfTotalElements.value = response.nrOfTotalElements;
-//     });
-//   }
-// }
 
 function loadPage() {
   const endpoint = "/fahrzeuge?pagenr=" + nrOfPage.value + "&pagesize=" + nrOfElementsOnPage.value;
@@ -57,62 +43,48 @@ function loadPage() {
 
 }
 
-function decrement() {
-  if (nrOfPage.value != 0) {
-    console.log("Decrement")
-    nrOfPage.value--;
-  }
-}
 
-function increment() {
-  console.log("Increment: " + nrOfElementsOnPage.value + "*" + (nrOfPage.value + 1) + "<" + nrOfTotalElements.value)
-  if ((nrOfElementsOnPage.value * (nrOfPage.value + 1)) < nrOfTotalElements.value) {
-
-    nrOfPage.value++;
-  }
-}
 </script>
 
 <template>
   <div class="wrapper">
+    <label>{{ nrOfPage }}</label>
     <button @click="router.push('/admin')">ToAdmin</button>
     <div class="debug">
       <pre>{{ userDataStore }}</pre>
     </div>
     <div class="get">
-<!--      <input type="button" value="get Cars" @click="getCars()">-->
+      <!--      <input type="button" value="get Cars" @click="getCars()">-->
       <pre>{{ listOfCars }}</pre>
     </div>
     <div class="pages">
       <pre>{{ listOfCarsPages }}</pre>
       <div class="selector">
-        <input type="button" value="-" @click="decrement()">
-        <label>{{ nrOfPage + 1 }}</label>
-        <input type="button" value="+" @click="increment()">
-        <select v-model="nrOfElementsOnPage" @change="nrOfPage=0" :disabled="true">
-          <option disabled value="">Please select one</option>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-        </select>
+        <PageSelector class="selector" :page-limit="(nrOfTotalElements / nrOfElementsOnPage) - 1"
+                      @PageNr="args => nrOfPage = args"></PageSelector>
       </div>
     </div>
+    <UserDisplayItem class="user-display" :user="fet"></UserDisplayItem>
   </div>
 </template>
 
-<style>
+<style scoped>
 .wrapper {
   height: 100%;
-  width: 100dvw;
+  width: 100%;
+}
+.selector {
+  width: 20vw;
 }
 
-.login, .debug, .get, .pages {
+.debug, .get, .pages {
   display: flex;
   flex-direction: column;
 }
 
-.selector {
+.user-display {
   display: flex;
-  flex-direction: row;
+  width: 40vw;
 }
+
 </style>
