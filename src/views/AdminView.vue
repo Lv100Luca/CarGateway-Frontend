@@ -44,6 +44,7 @@ async function loadUsers() {
                        :class="{ 'highlighted': selectedUser === user.id }"/>
     </div>
   </div>
+  <pre>{{users}}</pre>
 </template>
 <style scoped>
 .admin-wrapper {
