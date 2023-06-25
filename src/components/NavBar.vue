@@ -3,6 +3,7 @@ import {computed} from "vue";
 import type MenuItem from "@/components/models/MenuItem";
 import {useUserDataStore} from "@/stores/userDataStore";
 import {LocationQueryRaw, RouteRecordName, useRoute} from "vue-router";
+import {getHighestRole} from "@/components/models/Role";
 
 
 const userDataStore = useUserDataStore();
@@ -12,18 +13,7 @@ const route = useRoute();
 const menuItemsRight = computed<MenuItem[]>(() => {
   const items: MenuItem[] = [];
 
-  // const noReturnRoutes = [
-  //   "home",
-  //   "login",
-  //   "logout",
-  //   "forgot-password",
-  //   "not-found",
-  // ] as RouteRecordName[];
-  // const currentReturnQuery: LocationQueryRaw = {};
-  // if (!noReturnRoutes.includes(route.name ?? "not-found")) {
-  //   currentReturnQuery["return"] = route.fullPath;
-  // }
-  if (userDataStore.hasUser && userDataStore.role == 3) {
+  if (userDataStore.hasUser && getHighestRole(userDataStore.user.rollen) == 3) {
     //adminpanel
     items.push({
       label: "Admin",
@@ -36,13 +26,13 @@ const menuItemsRight = computed<MenuItem[]>(() => {
 
   if (userDataStore.hasUser) {
     items.push({
-      label: userDataStore.username,
+      label: userDataStore.user.username,
       to: {
         name: "account"
       }
     })
   }
-  if (!userDataStore.hasUser && userDataStore.role == 0) {
+  if (!userDataStore.hasUser) {
     items.push({
       label: "Login",
       to: {
@@ -71,8 +61,6 @@ const menuItemsRight = computed<MenuItem[]>(() => {
         <RouterLink to="/" class="logo-wrapper">
           <a class="logo"/>
         </RouterLink>
-        <label>{{ userDataStore.role }}</label>
-        <label>{{ userDataStore.hasUser }}</label>
       </div>
       <div class="nav-right">
         <RouterLink

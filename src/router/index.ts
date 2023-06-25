@@ -9,7 +9,7 @@ import AdminView from "@/views/AdminView.vue";
 import AccountView from "@/views/AccountView.vue";
 // @ts-ignore
 import LogoutView from "@/views/LogoutView.vue";
-import {Role} from "@/components/models/Role";
+import {getHighestRole, Role} from "@/components/models/Role";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -74,9 +74,11 @@ const router = createRouter({
 
 router.beforeEach(async (to, from) => {
     const userData = useUserDataStore();
-    await userData.fetchSelf();
-    const role = userData.role;
+    // const user = userData.user;
+    const user = await userData.fetchSelf();
     const isAuth = userData.hasUser;
+
+    const role = getHighestRole(user?.rollen ?? []);
 
     if (to.meta.minimumRole > role && !isAuth) {
         console.log("Blocked Route to: " + to.path)

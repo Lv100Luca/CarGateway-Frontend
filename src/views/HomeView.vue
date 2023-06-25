@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {onMounted, ref, watch} from "vue";
 import {useUserDataStore} from "@/stores/userDataStore";
-import APIService from "@/API/APIService";
 import type GetCarsResponseDTO from "@/DTO/GetCarsResponseDTO";
 import {useRouter} from "vue-router";
 import APIClient from "@/API/APIClient";
@@ -10,8 +9,6 @@ import PageSelector from "@/components/PageSelector.vue";
 import UserDisplayItem from "@/components/UserDisplayItem.vue";
 
 
-const name = ref();
-const pw = ref();
 const userDataStore = useUserDataStore();
 const listOfCars = ref<GetCarsResponseDTO[]>([]);
 const listOfCarsPages = ref<GetCarsResponseDTO[]>([]);
@@ -19,7 +16,9 @@ const nrOfElementsOnPage = ref(1);
 const nrOfPage = ref(0);
 const nrOfTotalElements = ref(4);
 const router = useRouter();
-let response = ref<GetCarsResponseDTO[]>([]);
+
+const pageLimit = ref((nrOfTotalElements.value / nrOfElementsOnPage.value) - 1);
+
 onMounted(async () => {
   if (userDataStore.hasUser) {
     loadPage();
@@ -40,9 +39,9 @@ function loadPage() {
     listOfCarsPages.value = response.content;
     nrOfTotalElements.value = response.nrOfTotalElements;
   })
-
 }
 
+console.log()
 
 </script>
 
@@ -51,7 +50,7 @@ function loadPage() {
     <label>{{ nrOfPage }}</label>
     <button @click="router.push('/admin')">ToAdmin</button>
     <div class="debug">
-      <pre>{{ userDataStore }}</pre>
+<!--      <pre>{{ userDataStore }}</pre>-->
     </div>
     <div class="get">
       <!--      <input type="button" value="get Cars" @click="getCars()">-->
@@ -60,11 +59,14 @@ function loadPage() {
     <div class="pages">
       <pre>{{ listOfCarsPages }}</pre>
       <div class="selector">
-        <PageSelector class="selector" :page-limit="(nrOfTotalElements / nrOfElementsOnPage) - 1"
+        <PageSelector class="selector" :page-limit="pageLimit"
                       @PageNr="args => nrOfPage = args"></PageSelector>
       </div>
     </div>
-    <UserDisplayItem class="user-display" :user="fet"></UserDisplayItem>
+    <UserDisplayItem v-if="userDataStore.hasUser" class="user-display" :id="userDataStore.user.id"
+                     :username="userDataStore.user.username" :role="userDataStore.user.rollen"
+                     :vorname="userDataStore.user.vorname" :nachname="userDataStore.user.nachname"
+    @userID="id => console.log(id)"></UserDisplayItem>
   </div>
 </template>
 
@@ -73,6 +75,7 @@ function loadPage() {
   height: 100%;
   width: 100%;
 }
+
 .selector {
   width: 20vw;
 }

@@ -4,9 +4,9 @@ import {ref} from "vue";
 
 const emits = defineEmits(["PageNr"]);
 const props = defineProps({
-  pageLimit: ref<number>,
+  pageLimit: Number,
 })
-const pageNr = ref(1);
+const pageNr = ref(0);
 
 function increment() {
   pageNr.value++;

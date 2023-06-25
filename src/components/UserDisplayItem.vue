@@ -1,27 +1,37 @@
 <script setup lang="ts">
 import type UserResponseDTO from "@/DTO/UserResponseDTO";
-import {getHighestRole} from "./models/Role";
 
 const props = defineProps({
-  user: UserResponseDTO
+  // user: UserResponseDTO
+  id: Number,
+  username: String,
+  vorname: String,
+  nachname: String,
+  rollen: Array
 })
-// const emits = defineEmits(['userID']);
+const emits = defineEmits(['userID']);
 </script>
 <template>
-  <div class="wrapper" @click="user!.id">
+<!--  <div class="wrapper" @click="user!.id">-->
+  <div class="wrapper" @click="$emit('userID', id)">
     <div class="left">
-      <h1>{{user!.id}}</h1>
+<!--      <h1>{{user!.id}}</h1>-->
+      <h1>{{id}}</h1>
     </div>
     <a class="v-border"/>
     <div class="right">
       <div class="role-bottom">
-        <h3>{{user!.username}}</h3>
-        <h3>{{getHighestRole(user!.rollen)}}</h3>
+        <h3>{{username}}</h3>
+<!--        <h3>{{user!.username}}</h3>-->
+<!--        <h3>{{(user!.rollen)}}</h3>-->
+        <h3>{{(rollen)}}</h3>
       </div>
       <a class="h-border"/>
       <div class="name-top">
-        <h3>{{user!.vorname}}</h3>
-        <h3>{{user!.nachname}}</h3>
+        <h3>{{vorname}}</h3>
+<!--        <h3>{{user!.vorname}}</h3>-->
+<!--        <h3>{{user!.nachname}}</h3>-->
+        <h3>{{nachname}}</h3>
       </div>
     </div>
   </div>
