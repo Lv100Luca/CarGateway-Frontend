@@ -53,7 +53,6 @@ console.log()
       <!--      <pre>{{ userDataStore }}</pre>-->
     </div>
     <div class="get">
-      <!--      <input type="button" value="get Cars" @click="getCars()">-->
       <pre>{{ listOfCars }}</pre>
     </div>
     <div class="pages">
@@ -63,9 +62,7 @@ console.log()
                       @PageNr="args => nrOfPage = args"></PageSelector>
       </div>
     </div>
-    <UserDisplayItem v-if="userDataStore.hasUser" class="user-display" :id="userDataStore.user.id"
-                     :username="userDataStore.user.username" :role="userDataStore.user.rollen"
-                     :vorname="userDataStore.user.vorname" :nachname="userDataStore.user.nachname" :user="userDataStore.user"
+    <UserDisplayItem v-if="userDataStore.hasUser" class="user-display" :user="userDataStore.user"
                      @userID="id => console.log(id)"></UserDisplayItem>
   </div>
 </template>
