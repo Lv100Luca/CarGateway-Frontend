@@ -10,6 +10,8 @@ import AccountView from "@/views/AccountView.vue";
 // @ts-ignore
 import LogoutView from "@/views/LogoutView.vue";
 import {getHighestRole, Role} from "@/components/models/Role";
+import "vue-router";
+import {useUserDataStore} from "@/stores/userDataStore";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -92,10 +94,6 @@ export default router
 
 
 export {};
-
-import "vue-router";
-import {useUserDataStore} from "@/stores/userDataStore";
-import APIClient from "@/API/APIClient";
 
 declare module "vue-router" {
     interface RouteMeta {

@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import {useUserDataStore} from "@/stores/userDataStore";
-import {onMounted, ref} from "vue";
-import type {Role} from "@/components/models/Role";
 import type UserResponseDTO from "@/DTO/UserResponseDTO";
 import APIClient from "@/API/APIClient";
 import {getRoleStringFromRoleArraySoThatTobiStopsCryingAboutIt} from "@/components/models/Role";

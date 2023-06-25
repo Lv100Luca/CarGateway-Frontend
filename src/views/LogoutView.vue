@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import {useUserDataStore} from "@/stores/userDataStore";
-import {getHighestRole, Role} from "@/components/models/Role";
 import {useRouter} from "vue-router";
 import {onMounted} from "vue";
-import APIClient from "@/API/APIClient";
 
 const userDataStore = useUserDataStore();
 const router = useRouter();

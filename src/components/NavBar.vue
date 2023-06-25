@@ -2,7 +2,7 @@
 import {computed} from "vue";
 import type MenuItem from "@/components/models/MenuItem";
 import {useUserDataStore} from "@/stores/userDataStore";
-import {LocationQueryRaw, RouteRecordName, useRoute} from "vue-router";
+import {useRoute} from "vue-router";
 import {getHighestRole} from "@/components/models/Role";
 
 

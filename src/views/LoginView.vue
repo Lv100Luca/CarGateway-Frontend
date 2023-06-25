@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import {useUserDataStore} from "@/stores/userDataStore";
 import {ref} from "vue";
-import {useRouter} from "vue-router";
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 
 const userDataStore = useUserDataStore();
 

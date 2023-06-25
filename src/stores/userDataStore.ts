@@ -1,11 +1,11 @@
-import {computed, reactive, ref} from 'vue'
+import {computed, reactive} from 'vue'
 import {defineStore} from 'pinia'
-import {getHighestRole, Role} from "@/components/models/Role";
 import APIClient from "@/API/APIClient";
 import type LoginDTO from "@/DTO/LoginDTO";
 import type LoginResponseDTO from "@/DTO/LoginResponseDTO";
 import type UserResponseDTO from "@/DTO/UserResponseDTO";
 import type UserDataStoreStare from "@/components/models/UserDataStoreStare";
+
 export const useUserDataStore = defineStore('UserDataStore', () => {
     // const id = ref(-1);
     // const username = ref("");
