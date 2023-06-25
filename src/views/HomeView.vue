@@ -58,7 +58,7 @@ console.log()
     <UserDisplayItem class="user-display" v-if="userDataStore.hasUser" :user="userDataStore.user"
                      @userID="id => console.log(id)"></UserDisplayItem>
     <br>
-    <CarDisplayItem class="car-display" v-for="car in listOfCarsPages" :car="car"
+    <CarDisplayItem class="car-display" v-for="car in listOfCarsPages" :car="car" :key="car.id"
                     @carID="id => console.log(id)"></CarDisplayItem>
   </div>
 </template>

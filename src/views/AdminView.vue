@@ -37,7 +37,7 @@ async function loadUsers() {
     <pre>Selected User: {{ selectedUser }}</pre>
     <PageSelector class="selector" :page-limit="pageLimit" @PageNr="args => pageNr = args"></PageSelector>
     <div class="users">
-      <UserDisplayItem v-for="user in users" v-bind:user="user" @userID="userID => selectedUser = userID"
+      <UserDisplayItem v-for="user in users" v-bind:user="user" @userID="userID => selectedUser = userID" :key="user.id"
                        :class="{ 'highlighted': selectedUser === user.id }"/>
     </div>
   </div>
