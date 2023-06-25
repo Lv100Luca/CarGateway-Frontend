@@ -4,15 +4,10 @@ import {onMounted, ref} from "vue";
 import type {Role} from "@/components/models/Role";
 import type UserResponseDTO from "@/DTO/UserResponseDTO";
 import APIClient from "@/API/APIClient";
+import {getRoleStringFromRoleArraySoThatTobiStopsCryingAboutIt} from "@/components/models/Role";
 
 const userData = useUserDataStore();
-
-const id = ref(userData.id);
-const username = ref(userData.username);
-const vorname = ref(userData.vorname);
-const nachname = ref(userData.nachname);
-const role = ref(userData.role);
-
+const user = userData.user;
 
 // onMounted(async () => {
 //   if (userData.hasUser) {
@@ -23,13 +18,13 @@ const role = ref(userData.role);
 async function updateUser() {
   const response = await APIClient.patchRequest<UserResponseDTO>("/user/alter", true,
       {
-        "id": id.value,
-        "username": username.value,
-        "vorname": vorname.value,
-        "nachname": nachname.value,
-        "rollen": [role.value]
+        "id": user.id,
+        "username": user.username,
+        "vorname": user.vorname,
+        "nachname": user.nachname,
+        "rollen": user.rollen
       } as UserResponseDTO
-  );
+  ); //todo change how this works maybe | maybe make changes here drectly effect logged in User
   if (response) {
     console.log("Name Changed, fetching self")
     await userData.fetchSelf();
@@ -44,23 +39,23 @@ async function updateUser() {
     <div class="data">
       <div class="identifiers">
         <label style="display: flex; flex-direction: column">ID:
-          <input disabled="disabled" type="text" :value="id">
+          <input disabled="disabled" type="text" :value="user.id">
         </label>
         <label style="display: flex; flex-direction: column">Username:
-          <input disabled="disabled" type="text" :value="username">
+          <input disabled="disabled" type="text" :value="user.username">
         </label>
       </div>
       <div class="name">
         <label style="display: flex; flex-direction: column">Name:
-          <input type="text" v-model="vorname">
+          <input type="text" v-model="user.vorname">
         </label>
         <label style="display: flex; flex-direction: column">Surname:
-          <input type="text" v-model="nachname">
+          <input type="text" v-model="user.nachname">
         </label>
       </div>
 <!--      Todo: Convert RoleID into String-->
       <label class="role" style="display: flex; flex-direction: column">Role:
-        <input disabled="disabled" type="text" :value="role">
+        <input disabled="disabled" type="text" :value="getRoleStringFromRoleArraySoThatTobiStopsCryingAboutIt(user.rollen)">
       </label>
       <input type="button" value="Change Name" @click="updateUser()">
 
