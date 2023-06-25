@@ -7,12 +7,6 @@ import {getRoleStringFromRoleArraySoThatTobiStopsCryingAboutIt} from "@/componen
 const userData = useUserDataStore();
 const user = userData.user;
 
-// onMounted(async () => {
-//   if (userData.hasUser) {
-//     await userData.fetchSelf();
-//   }
-// })
-
 async function updateUser() {
   const response = await APIClient.patchRequest<UserResponseDTO>("/user/alter", true,
       {
@@ -55,9 +49,9 @@ async function updateUser() {
         <input disabled="disabled" type="text" :value="getRoleStringFromRoleArraySoThatTobiStopsCryingAboutIt(user.rollen)">
       </label>
       <input type="button" value="Change Name" @click="updateUser()">
-
     </div>
   </div>
+<pre>{{user}}</pre>
 </template>
 <style scoped>
 .account {
