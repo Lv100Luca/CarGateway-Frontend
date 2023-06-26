@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type UserResponseDTO from "@/DTO/UserResponseDTO";
-import {getHighestRole, getRoleAsString} from "./models/Role";
+import {getHighestRole, getRoleAsString, getStringsFromRoles} from "./models/Role";
 
 const props = defineProps({
   user: {
@@ -11,7 +11,7 @@ const props = defineProps({
 const emits = defineEmits(['userID']);
 </script>
 <template>
-  <div class="wrapper" @click="emits('userID', props.user!.id)">
+  <div class="wrapper" @click="$emit('userID', props.user!.id)">
     <div class="left">
       <h1>{{ props.user!.id }}</h1>
     </div>
@@ -19,7 +19,7 @@ const emits = defineEmits(['userID']);
     <div class="right">
       <div class="role-bottom">
         <h3>{{ props.user!.username }}</h3>
-        <h3>{{ getRoleAsString(props.user!.roles) }}</h3>
+        <h3>{{ getStringsFromRoles(props.user!.roles) }}</h3>
 <!--        <h3>{{getHighestRole(user.roles)}}</h3>-->
       </div>
       <a class="h-border"/>

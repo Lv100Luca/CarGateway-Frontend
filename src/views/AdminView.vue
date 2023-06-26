@@ -47,7 +47,7 @@ async function loadUsers() {
 <template>
   <div>
     <ChangeUserModal :show="showModal" v-if="selectedUser !== null" :user="selectedUser"
-                     @close="showModal = false"></ChangeUserModal>
+                     @close="showModal = false" @success="loadUsers"></ChangeUserModal>
     <div class="admin-wrapper">
       <h1>ADMIN Panel</h1>
       <pre>Selected User: {{ selectedUser }}</pre>

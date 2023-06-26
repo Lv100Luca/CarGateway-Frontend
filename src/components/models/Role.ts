@@ -29,6 +29,23 @@ export function getRoleAsString(roleList: string[]): string {
     }
 }
 
+export function getStringsFromRoles(roles: string[]) {
+    const listOfStrings: string[] = [];
+    if (roles.includes("ROLE_ADMIN")) {
+        listOfStrings.push("Admin");
+    }
+    if (roles.includes("ROLE_MITARBEITER")) {
+        listOfStrings.push("Employee");
+    }
+    if (roles.includes("ROLE_MITGLIED")) {
+        listOfStrings.push("User");
+    }
+    if (roles.length == 0) {
+        listOfStrings.push("None")
+    }
+    return listOfStrings;
+}
+
 export function getRolesFromString(roles: string[]) {
     const listOfRoles: string[] = [];
     if (roles.includes("Admin")) {

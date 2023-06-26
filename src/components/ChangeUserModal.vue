@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import UserResponseDTO from "@/DTO/UserResponseDTO";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import {
-  getRoleAsString, getRolesFromString
+  getRolesFromString, getStringsFromRoles
 } from "@/components/models/Role";
 import APIClient from "@/API/APIClient";
 
@@ -13,28 +13,32 @@ const props = defineProps({
     required: true
   }
 });
-const selectedRoles = ref([]);
+const emits = defineEmits(['close', 'success']);
+const selectedRoles = ref(computed(() => getStringsFromRoles(props.user!.roles)).value);
 
-const vorname = ref(props.user!.vorname)
-const nachname = ref(props.user!.nachname)
+
+// const vorname = ref(props.user!.vorname)
+// const nachname = ref(props.user!.nachname)
 
 async function changeUser() {
   const response = await APIClient.patchRequest<UserResponseDTO>("/user/change", true,
       {
         "id": props.user!.id,
         "username": props.user!.username,
-        "vorname": vorname.value,
-        "nachname": nachname.value,
+        "vorname": props.user!.vorname,
+        "nachname": props.user!.nachname,
         "roles": getRolesFromString(selectedRoles.value)
       } as UserResponseDTO);
   if (response) {
     console.log("Worked!");
+    emits('success')
+    emits("close")
   }
 }
+
+
 </script>
 <template>
-  <pre>{{selectedRoles}}}</pre>
-  <pre>{{getRolesFromString(selectedRoles)}}</pre>
   <!--  <div v-if="props.show" class="modal-mask" @click="$emit('close')">-->
   <div v-if="props.show" class="modal-mask">
     <div class="modal-container">
@@ -44,10 +48,10 @@ async function changeUser() {
       <div class="modal-body">
         <div class="name">
           <label>Vorname:
-            <input type="text" v-model="vorname">
+            <input disabled="disabled" type="text" :value="user.vorname">
           </label>
           <label>Nachname:
-            <input type="text" v-model="nachname">
+            <input disabled="disabled" type="text" :value="user.nachname">
           </label>
         </div>
         <label>Role:

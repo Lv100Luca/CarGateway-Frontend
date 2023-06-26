@@ -2,7 +2,7 @@
 import {useUserDataStore} from "@/stores/userDataStore";
 import type UserResponseDTO from "@/DTO/UserResponseDTO";
 import APIClient from "@/API/APIClient";
-import {getRoleAsString} from "@/components/models/Role";
+import {getRoleAsString, getStringsFromRoles} from "@/components/models/Role";
 
 const userData = useUserDataStore();
 const user = userData.user;
@@ -26,6 +26,7 @@ async function updateUser() {
 </script>
 
 <template>
+  <pre>{{user}}</pre>
   <div class="account">
     <h1 class="title">Account</h1>
     <div class="data">
@@ -46,7 +47,7 @@ async function updateUser() {
         </label>
       </div>
       <label class="role" style="display: flex; flex-direction: column">Role:
-        <input disabled="disabled" type="text" :value="getRoleAsString(user.roles)">
+        <input disabled="disabled" type="text" :value="getStringsFromRoles(user.roles)">
       </label>
       <input type="button" value="Change Name" @click="updateUser()">
     </div>
