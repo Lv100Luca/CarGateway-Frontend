@@ -2,7 +2,7 @@
 import {useUserDataStore} from "@/stores/userDataStore";
 import type UserResponseDTO from "@/DTO/UserResponseDTO";
 import APIClient from "@/API/APIClient";
-import {getRoleStringFromRoleArraySoThatTobiStopsCryingAboutIt} from "@/components/models/Role";
+import {getRoleStringFromRoleArraySoThatTobiStopsCryingAboutNonOrdinalRoles} from "@/components/models/Role";
 
 const userData = useUserDataStore();
 const user = userData.user;
@@ -46,12 +46,11 @@ async function updateUser() {
         </label>
       </div>
       <label class="role" style="display: flex; flex-direction: column">Role:
-        <input disabled="disabled" type="text" :value="getRoleStringFromRoleArraySoThatTobiStopsCryingAboutIt(user.rollen)">
+        <input disabled="disabled" type="text" :value="getRoleStringFromRoleArraySoThatTobiStopsCryingAboutNonOrdinalRoles(user.rollen)">
       </label>
       <input type="button" value="Change Name" @click="updateUser()">
     </div>
   </div>
-<pre>{{user}}</pre>
 </template>
 <style scoped>
 .account {

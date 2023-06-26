@@ -7,6 +7,7 @@ import type GetCarsWithPagesResponseDTO from "@/DTO/GetCarsWithPagesResponseDTO"
 import PageSelector from "@/components/PageSelector.vue";
 import UserDisplayItem from "@/components/UserDisplayItem.vue";
 import CarDisplayItem from "@/components/CarDisplayItem.vue";
+import ChangeUserModal from "@/components/ChangeUserModal.vue";
 
 
 const userDataStore = useUserDataStore();
