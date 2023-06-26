@@ -32,20 +32,19 @@ watch(nrOfPage, () => {
 })
 
 
-function loadPage() {
+async function loadPage() {
   const endpoint = "/fahrzeuge?pagenr=" + nrOfPage.value + "&pagesize=" + nrOfElementsOnPage.value;
-  APIClient.getRequest<GetCarsWithPagesResponseDTO>(endpoint, true).then(response => {
+  const response = await APIClient.getRequest<GetCarsWithPagesResponseDTO>(endpoint, true);
+  if (response != null) {
     listOfCarsPages.value = response.content;
     nrOfTotalElements.value = response.nrOfTotalElements;
-  })
+  }
 }
-
-console.log()
-
 </script>
 
 <template>
   <div class="wrapper">
+    <pre>{{userDataStore.state}}</pre>
     <div class="debug">
       <!--      <pre>{{ userDataStore }}</pre>-->
     </div>

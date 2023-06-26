@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type UserResponseDTO from "@/DTO/UserResponseDTO";
-import {getHighestRole, getRoleStringFromRoleArraySoThatTobiStopsCryingAboutNonOrdinalRoles} from "./models/Role";
+import {getHighestRole, getRoleAsString} from "./models/Role";
 
 const props = defineProps({
   user: {
@@ -19,8 +19,8 @@ const emits = defineEmits(['userID']);
     <div class="right">
       <div class="role-bottom">
         <h3>{{ props.user!.username }}</h3>
-        <h3>{{ getRoleStringFromRoleArraySoThatTobiStopsCryingAboutNonOrdinalRoles(props.user!.rollen) }}</h3>
-<!--        <h3>{{getHighestRole(user.rollen)}}</h3>-->
+        <h3>{{ getRoleAsString(props.user!.roles) }}</h3>
+<!--        <h3>{{getHighestRole(user.roles)}}</h3>-->
       </div>
       <a class="h-border"/>
       <div class="name-top">

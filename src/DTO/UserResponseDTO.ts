@@ -3,5 +3,5 @@ export default interface UserResponseDTO {
     username: string;
     vorname: string;
     nachname: string;
-    rollen: string[];
+    roles: string[];
 }

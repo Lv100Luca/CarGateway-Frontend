@@ -47,7 +47,11 @@ export default class APIClient {
             return await response.json() as TResponse;
         }
         //todo: error handling
-        else console.log("Error in getRequest at endpoint: " + endpoint)
+        else {
+            console.log("Error in getRequest at endpoint: " + endpoint)
+            return null;
+        }
+
     }
 
     public static async postRequest<TBody extends Body, TResponse>(endpoint: string, requireAuth: boolean, body: TBody) {

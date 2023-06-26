@@ -12,6 +12,7 @@ import LogoutView from "@/views/LogoutView.vue";
 import {getHighestRole, Role} from "@/components/models/Role";
 import "vue-router";
 import {useUserDataStore} from "@/stores/userDataStore";
+import ManageUserView from "@/views/ManageUserView.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -70,7 +71,16 @@ const router = createRouter({
                 minimumRole: Role.admin,
                 onlyGuest: false
             }
-        },
+        }, {
+            path: '/manage',
+            name: 'manage',
+            component: ManageUserView,
+            meta: {
+                minimumRole: Role.employee,
+                onlyGuest: false
+            }
+        }
+
     ]
 });
 
@@ -80,7 +90,7 @@ router.beforeEach(async (to) => {
     const user = await userData.fetchSelf();
     const isAuth = userData.hasUser;
 
-    const role = getHighestRole(user?.rollen ?? []);
+    const role = getHighestRole(user?.roles ?? []);
 
     if (to.meta.minimumRole > role && !isAuth) {
         console.log("Blocked Route to: " + to.path)

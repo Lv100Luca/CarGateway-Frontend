@@ -2,7 +2,7 @@
 import {useUserDataStore} from "@/stores/userDataStore";
 import type UserResponseDTO from "@/DTO/UserResponseDTO";
 import APIClient from "@/API/APIClient";
-import {getRoleStringFromRoleArraySoThatTobiStopsCryingAboutNonOrdinalRoles} from "@/components/models/Role";
+import {getRoleAsString} from "@/components/models/Role";
 
 const userData = useUserDataStore();
 const user = userData.user;
@@ -14,7 +14,7 @@ async function updateUser() {
         "username": user.username,
         "vorname": user.vorname,
         "nachname": user.nachname,
-        "rollen": user.rollen
+        "roles": user.roles
       } as UserResponseDTO
   ); //todo change how this works maybe | maybe make changes here directly effect logged in User
   if (response) {
@@ -46,7 +46,7 @@ async function updateUser() {
         </label>
       </div>
       <label class="role" style="display: flex; flex-direction: column">Role:
-        <input disabled="disabled" type="text" :value="getRoleStringFromRoleArraySoThatTobiStopsCryingAboutNonOrdinalRoles(user.rollen)">
+        <input disabled="disabled" type="text" :value="getRoleAsString(user.roles)">
       </label>
       <input type="button" value="Change Name" @click="updateUser()">
     </div>

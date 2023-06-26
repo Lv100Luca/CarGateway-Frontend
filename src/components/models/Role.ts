@@ -3,6 +3,7 @@ export enum Role {
     user = 1,
     employee = 2,
     admin = 3
+
 }
 
 export function getHighestRole(roleList: string[]): Role {
@@ -12,7 +13,7 @@ export function getHighestRole(roleList: string[]): Role {
     return Role.none;
 }
 
-export function getRoleStringFromRoleArraySoThatTobiStopsCryingAboutNonOrdinalRoles(roleList: string[]): string {
+export function getRoleAsString(roleList: string[]): string {
     switch (getHighestRole(roleList)) {
         case Role.none:
             return "None";
@@ -25,28 +26,19 @@ export function getRoleStringFromRoleArraySoThatTobiStopsCryingAboutNonOrdinalRo
 
         case Role.admin:
             return "Admin"
-
     }
 }
 
-export function turnRoleStringIntoNonOrdinalListOfStringWithRolesSoThatTobiIsHappy(role: string) {
-    switch (role) {
-        case "Admin":
-            return [
-                "ROLE_ADMIN",
-                "ROLE_MITGLIED",
-                "ROLE_MITARBEITER"
-            ];
-        case "Employee":
-            return [
-                "ROLE_MITARBEITER",
-                "ROLE_MITGLIED"
-            ];
-        case "User":
-            return [
-                "ROLE_MITGLIED"
-            ]
-        case "None":
-            return [];
+export function getRolesFromString(roles: string[]) {
+    const listOfRoles: string[] = [];
+    if (roles.includes("Admin")) {
+        listOfRoles.push("ROLE_ADMIN");
     }
+    if (roles.includes("Employee")) {
+        listOfRoles.push("ROLE_MITARBEITER");
+    }
+    if (roles.includes("User")) {
+        listOfRoles.push("ROLE_MITGLIED");
+    }
+    return listOfRoles;
 }

@@ -2,8 +2,7 @@
 import UserResponseDTO from "@/DTO/UserResponseDTO";
 import {ref} from "vue";
 import {
-  getRoleStringFromRoleArraySoThatTobiStopsCryingAboutNonOrdinalRoles,
-  turnRoleStringIntoNonOrdinalListOfStringWithRolesSoThatTobiIsHappy
+  getRoleAsString, getRolesFromString
 } from "@/components/models/Role";
 import APIClient from "@/API/APIClient";
 
@@ -14,22 +13,19 @@ const props = defineProps({
     required: true
   }
 });
-const selectedRole = ref(getRoleStringFromRoleArraySoThatTobiStopsCryingAboutNonOrdinalRoles(props.user!.rollen));
+const selectedRoles = ref([]);
 
 const vorname = ref(props.user!.vorname)
 const nachname = ref(props.user!.nachname)
 
 async function changeUser() {
-  console.log(props.user!.rollen);
-  props.user!.rollen = turnRoleStringIntoNonOrdinalListOfStringWithRolesSoThatTobiIsHappy(selectedRole.value);
-  console.log(props.user!.rollen);
   const response = await APIClient.patchRequest<UserResponseDTO>("/user/change", true,
       {
         "id": props.user!.id,
         "username": props.user!.username,
         "vorname": vorname.value,
         "nachname": nachname.value,
-        "roles": turnRoleStringIntoNonOrdinalListOfStringWithRolesSoThatTobiIsHappy(selectedRole.value)
+        "roles": getRolesFromString(selectedRoles.value)
       } as UserResponseDTO);
   if (response) {
     console.log("Worked!");
@@ -37,6 +33,8 @@ async function changeUser() {
 }
 </script>
 <template>
+  <pre>{{selectedRoles}}}</pre>
+  <pre>{{getRolesFromString(selectedRoles)}}</pre>
   <!--  <div v-if="props.show" class="modal-mask" @click="$emit('close')">-->
   <div v-if="props.show" class="modal-mask">
     <div class="modal-container">
@@ -53,7 +51,7 @@ async function changeUser() {
           </label>
         </div>
         <label>Role:
-          <select v-model="selectedRole">
+          <select v-model="selectedRoles" multiple>
             <option>Admin</option>
             <option>Employee</option>
             <option>User</option>
@@ -91,16 +89,7 @@ async function changeUser() {
   transition: all 0.3s ease;
 }
 
-.modal-header h3 {
-  margin-top: 0;
-  color: #42b983;
-}
-
 .modal-body {
   margin: 20px 0;
-}
-
-.modal-button {
-  float: right;
 }
 </style>

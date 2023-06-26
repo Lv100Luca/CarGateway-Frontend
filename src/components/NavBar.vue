@@ -10,12 +10,21 @@ const userDataStore = useUserDataStore();
 const menuItemsRight = computed<MenuItem[]>(() => {
   const items: MenuItem[] = [];
 
-  if (userDataStore.hasUser && getHighestRole(userDataStore.user.rollen) == 3) {
+  if (userDataStore.hasUser && getHighestRole(userDataStore.user.roles) == 3) {
     //adminpanel
     items.push({
       label: "Admin",
       to: {
         name: "admin"
+      }
+    });
+  }
+
+  if (userDataStore.hasUser && getHighestRole(userDataStore.user.roles) == 2) {
+    items.push({
+      label: "Manage",
+      to: {
+        name: "manage"
       }
     });
   }

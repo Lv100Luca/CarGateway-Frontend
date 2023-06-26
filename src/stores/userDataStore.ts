@@ -7,12 +7,6 @@ import type UserResponseDTO from "@/DTO/UserResponseDTO";
 import type UserDataStoreStare from "@/components/models/UserDataStoreStare";
 
 export const useUserDataStore = defineStore('UserDataStore', () => {
-    // const id = ref(-1);
-    // const username = ref("");
-    // const vorname = ref("");
-    // const nachname = ref("");
-    // const role = ref(Role.none);
-    // const hasUser = ref(false); // repalce with state interface
 
     const state = reactive<UserDataStoreStare>({user: null});
     const user = computed<UserResponseDTO>(() => state.user!);
@@ -39,12 +33,6 @@ export const useUserDataStore = defineStore('UserDataStore', () => {
 
     function logout() { // todo async yes?
         APIClient.token = null;
-        // id.value = -1;
-        // username.value = "";
-        // vorname.value = "";
-        // nachname.value = "";
-        // role.value = Role.none;
-        // hasUser.value = false;
         state.user = null;
 
     }
@@ -56,18 +44,10 @@ export const useUserDataStore = defineStore('UserDataStore', () => {
         console.log("Fetching Self")
         const response = await APIClient.getRequest<UserResponseDTO>("/user/self", true);
         try {
-            if (response == undefined) {
+            if (response == null) {
                 console.log("Error Fetching self")
                 return null;
             } else {
-                console.log(response.rollen)
-                // id.value = response.id;
-                // username.value = response.username;
-                // vorname.value = response.vorname;
-                // nachname.value = response.nachname
-                // // role.value = 3;
-                // role.value = getHighestRole(response.rollen);
-                // hasUser.value = true;
 
                 state.user = response;
 
@@ -79,8 +59,6 @@ export const useUserDataStore = defineStore('UserDataStore', () => {
         }
 
     }
-
-    // return {id, username, vorname, nachname, role, hasUser, login, logout, fetchSelf, state, user}
     return {login, logout, fetchSelf, state, user, hasUser}
 })
 
