@@ -8,14 +8,7 @@ const userData = useUserDataStore();
 const user = userData.user;
 
 async function updateUser() {
-  const response = await APIClient.patchRequest<UserResponseDTO>("/user/alter", true,
-      {
-        "id": user.id,
-        "username": user.username,
-        "vorname": user.vorname,
-        "nachname": user.nachname,
-        "roles": user.roles
-      } as UserResponseDTO
+  const response = await APIClient.patchRequest<UserResponseDTO>("/user/alter", true, user
   ); //todo change how this works maybe | maybe make changes here directly effect logged in User
   if (response) {
     console.log("Name Changed, fetching self")
@@ -26,7 +19,7 @@ async function updateUser() {
 </script>
 
 <template>
-  <pre>{{user}}</pre>
+  <pre>{{ user }}</pre>
   <div class="account">
     <h1 class="title">Account</h1>
     <div class="data">
