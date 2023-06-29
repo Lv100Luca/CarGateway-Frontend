@@ -61,10 +61,17 @@ export default class APIClient {
             body: JSON.stringify(body), // jsonify body object
         });
         if (response.ok) { // todo: more response cases
-            return await response.json() as TResponse;
+            try {
+                console.log("Try Returning Json as TResponse");
+                return await response.json() as TResponse;
+            } catch (e) {
+                console.log("Json cant be Converted to TResponse")
+            }
         }
         //todo: error handling
-        else console.log("Error in postRequest at endpoint: " + endpoint);
+        else {
+            console.log("Error in postRequest at endpoint: " + endpoint);
+        }
     }
 
     public static async patchRequest<TBody extends Body>(endpoint: string, requireAuth: boolean, body: TBody) {
