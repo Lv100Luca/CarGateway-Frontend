@@ -19,16 +19,15 @@ async function updateUser() {
 </script>
 
 <template>
-  <pre>{{ user }}</pre>
   <div class="account">
     <h1 class="title">Account</h1>
     <div class="data">
       <div class="identifiers">
         <label style="display: flex; flex-direction: column">ID:
-          <input disabled="disabled" type="text" :value="user.id">
+          <input :value="user.id" disabled type="text">
         </label>
         <label style="display: flex; flex-direction: column">Username:
-          <input disabled="disabled" type="text" :value="user.username">
+          <input :value="user.username" disabled type="text">
         </label>
       </div>
       <div class="name">
@@ -40,7 +39,7 @@ async function updateUser() {
         </label>
       </div>
       <label class="role" style="display: flex; flex-direction: column">Role:
-        <input disabled="disabled" type="text" :value="getStringsFromRoles(user.roles)">
+        <input :value="getStringsFromRoles(user.roles)" disabled type="text">
       </label>
       <input type="button" value="Change Name" @click="updateUser()">
     </div>
