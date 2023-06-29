@@ -7,8 +7,9 @@ import type GetCarsWithPagesResponseDTO from "@/DTO/GetCarsWithPagesResponseDTO"
 import PageSelector from "@/components/PageSelector.vue";
 import UserDisplayItem from "@/components/UserDisplayItem.vue";
 import CarDisplayItem from "@/components/CarDisplayItem.vue";
+import {useRouter} from "vue-router";
 
-
+const router = useRouter();
 const userDataStore = useUserDataStore();
 const listOfCarsPages = ref<GetCarsResponseDTO[]>([]);
 const nrOfElementsOnPage = ref(2);
@@ -19,7 +20,9 @@ const pageLimit = ref((nrOfTotalElements.value / nrOfElementsOnPage.value) - 1);
 
 onMounted(async () => {
   if (userDataStore.hasUser) {
-    loadPage();
+    await loadPage();
+  } else {
+    await router.push("/welcome");
   }
 })
 watch(nrOfElementsOnPage, () => {
