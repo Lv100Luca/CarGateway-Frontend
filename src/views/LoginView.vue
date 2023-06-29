@@ -10,10 +10,11 @@ const password = ref("admin");
 
 const router = useRouter();
 const route = useRoute();
-
+const isLoading = ref(false);
 
 async function handleLogin() {
   let loginSuccess: boolean;
+  isLoading.value = true;
   loginSuccess = await userDataStore.login(username.value, password.value);
   console.log(loginSuccess)
   if (loginSuccess) {
@@ -57,7 +58,7 @@ async function handleLogin() {
         <input @keydown.enter="handleLogin()" v-model="password" type="password" class="password">
       </label>
       <router-link to="/register">Register</router-link>
-      <input @click="handleLogin()" type="button" value="Login" class="login-button">
+      <input :disabled="isLoading" class="login-button" type="button" value="Login" @click="handleLogin()">
     </div>
   </div>
 </template>
