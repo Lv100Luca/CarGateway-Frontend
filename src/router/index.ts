@@ -13,6 +13,7 @@ import {getHighestRole, Role} from "@/components/models/Role";
 import "vue-router";
 import {useUserDataStore} from "@/stores/userDataStore";
 import ManageUserView from "@/views/ManageUserView.vue";
+// @ts-ignore
 import Register from "@/views/Register.vue";
 
 const router = createRouter({
