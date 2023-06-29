@@ -56,6 +56,7 @@ async function handleLogin() {
         Password:
         <input @keydown.enter="handleLogin()" v-model="password" type="password" class="password">
       </label>
+      <router-link to="/register">Register</router-link>
       <input @click="handleLogin()" type="button" value="Login" class="login-button">
     </div>
   </div>

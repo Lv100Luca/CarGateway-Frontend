@@ -13,7 +13,7 @@ import {getHighestRole, Role} from "@/components/models/Role";
 import "vue-router";
 import {useUserDataStore} from "@/stores/userDataStore";
 import ManageUserView from "@/views/ManageUserView.vue";
-import Register from "@/views/Register.Vue";
+import Register from "@/views/Register.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),

@@ -2,7 +2,7 @@
 import {useUserDataStore} from "@/stores/userDataStore";
 import type UserResponseDTO from "@/DTO/UserResponseDTO";
 import APIClient from "@/API/APIClient";
-import {getRoleAsString, getStringsFromRoles} from "@/components/models/Role";
+import {getStringsFromRoles} from "@/components/models/Role";
 
 const userData = useUserDataStore();
 const user = userData.user;

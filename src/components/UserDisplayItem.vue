@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type UserResponseDTO from "@/DTO/UserResponseDTO";
-import {getHighestRole, getRoleAsString, getStringsFromRoles} from "./models/Role";
+import {getStringsFromRoles} from "./models/Role";
 
 const props = defineProps({
   user: {
