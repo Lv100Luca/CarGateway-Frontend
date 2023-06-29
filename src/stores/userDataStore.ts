@@ -59,6 +59,7 @@ export const useUserDataStore = defineStore('UserDataStore', () => {
         }
 
     }
+
     return {login, logout, fetchSelf, state, user, hasUser}
 })
 
