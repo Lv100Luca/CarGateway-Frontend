@@ -6,6 +6,7 @@ import APIClient from "@/API/APIClient";
 // @ts-ignore
 import type UserRegisterDTO from "@/DTO/UserRegisterDTO";
 import {useUserDataStore} from "../stores/userDataStore";
+import {useRouter} from "vue-router";
 
 const userDataStore = useUserDataStore();
 const vorname = ref("luca");
@@ -13,6 +14,7 @@ const nachname = ref("diegel");
 const username = ref("luca");
 const password = ref("admin");
 
+const router = useRouter();
 
 const isComplete = computed(() => {
   return (vorname.value !== "" && nachname.value !== "" && username.value !== "" && password.value !== "");
@@ -37,7 +39,10 @@ async function register() {
     console.log(e);
   }
   console.log("Register OK");
-  // await userDataStore.login(username.value, password.value);
+  if (await userDataStore.login(username.value, password.value)) {
+    console.log("Login after RegisterOK");
+    await router.push("/account")
+  }
 }
 </script>
 
