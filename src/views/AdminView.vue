@@ -5,7 +5,7 @@ import APIClient from "@/API/APIClient";
 import type UserListResponseDTO from "@/DTO/UserListResponseDTO";
 import UserDisplayItem from "@/components/UserDisplayItem.vue";
 import PageSelector from "@/components/PageSelector.vue";
-import ChangeUserModal from "@/components/ChangeUserModal.vue";
+import ChangeUserModal from "@/components/Modal/ChangeUserModal.vue";
 
 const users = ref<UserResponseDTO[]>([]);
 const selectedUser = ref<UserResponseDTO | null>(null);
