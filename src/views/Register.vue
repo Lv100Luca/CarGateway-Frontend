@@ -20,7 +20,7 @@ const isComplete = computed(() => {
   return (vorname.value !== "" && nachname.value !== "" && username.value !== "" && password.value !== "");
 
 })
-
+//todo: fix registering into eisting account causes login
 async function register() {
   console.log("submitting");
   try {
