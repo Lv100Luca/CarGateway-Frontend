@@ -95,7 +95,7 @@ const router = createRouter({
     ]
 });
 
-router.beforeEach(async (to) => {
+router.beforeEach(async (to, from) => {
     const userData = useUserDataStore();
     // const user = userData.user;
     const user = await userData.fetchSelf();
@@ -107,6 +107,10 @@ router.beforeEach(async (to) => {
         console.log("Blocked Route to: " + to.path)
 
         return {name: "login", query: {return: to.path}} // routes user to Login
+    }
+
+    if (to.meta.onlyGuest && isAuth) {
+        return from;
     }
 
 });
