@@ -19,16 +19,15 @@ import Register from "@/views/Register.vue";
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
-        // {
-        //     path: '/welcome',
-        //     name: 'welcome',
-        //     component: HomeView,
-        //     meta: {
-        //         minimumRole: Role.none,
-        //         onlyGuest: true
-        //     }
-        //
-        // }, todo add welcome page to register
+        {
+            path: '/welcome',
+            name: 'welcome',
+            component: HomeView,
+            meta: {
+                minimumRole: Role.none,
+                onlyGuest: true
+            }
+        },
         {
             path: '/',
             name: 'home',
