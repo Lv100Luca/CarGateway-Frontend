@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted, ref, watch} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import type UserResponseDTO from "@/DTO/UserResponseDTO";
 import APIClient from "@/API/APIClient";
 import type UserListResponseDTO from "@/DTO/UserListResponseDTO";
@@ -11,9 +11,9 @@ const users = ref<UserResponseDTO[]>([]);
 const selectedUser = ref<UserResponseDTO | null>(null);
 
 const pageNr = ref(0);
-const pageSize = 5;
+const pageSize = 10;
 const totalNrOfElements = ref(5);
-const pageLimit = ref((totalNrOfElements.value / pageSize) - 1);
+const pageLimit = computed(() => Math.ceil(totalNrOfElements.value / pageSize) - 1);
 
 const showModal = ref(false);
 
@@ -53,7 +53,8 @@ async function loadUsers() {
       <pre>Selected User: {{ selectedUser }}</pre>
       <PageSelector class="selector" :page-limit="pageLimit" @PageNr="args => pageNr = args"></PageSelector>
       <div class="users">
-        <UserDisplayItem v-for="user in users" v-bind:user="user" @userID="userID => selectUser(userID)" :key="user.id"/>
+        <UserDisplayItem v-for="user in users" v-bind:user="user" @userID="userID => selectUser(userID)"
+                         :key="user.id"/>
       </div>
     </div>
   </div>
