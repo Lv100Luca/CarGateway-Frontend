@@ -46,10 +46,10 @@ async function changeUser() {
       <div class="modal-body">
         <div class="name">
           <label>Vorname:
-            <input disabled="disabled" type="text" :value="user.vorname">
+            <input :value="user.vorname" disabled type="text">
           </label>
           <label>Nachname:
-            <input disabled="disabled" type="text" :value="user.nachname">
+            <input :value="user.nachname" disabled type="text">
           </label>
         </div>
         <label>Role:
