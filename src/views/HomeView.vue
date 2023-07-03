@@ -45,44 +45,8 @@ async function loadPage() {
 </script>
 
 <template>
-  <div class="wrapper">
-    <pre>{{userDataStore.state}}</pre>
-    <div class="debug">
-      <!--      <pre>{{ userDataStore }}</pre>-->
-    </div>
-    <div class="pages">
-      <pre>{{ listOfCarsPages }}</pre>
-      <div class="selector">
-        <PageSelector class="selector" :page-limit="pageLimit"
-                      @PageNr="args => nrOfPage = args"></PageSelector>
-      </div>
-    </div>
-    <UserDisplayItem class="user-display" v-if="userDataStore.hasUser" :user="userDataStore.user"
-                     @userID="id => console.log(id)"></UserDisplayItem>
-    <br>
-    <CarDisplayItem class="car-display" v-for="car in listOfCarsPages" :car="car" :key="car.id"
-                    @carID="id => console.log(id)"></CarDisplayItem>
-  </div>
+
 </template>
 
 <style scoped>
-.wrapper {
-  height: 100%;
-  width: 100%;
-}
-
-.selector {
-  width: 20vw;
-}
-
-.debug, .pages {
-  display: flex;
-  flex-direction: column;
-}
-
-.user-display, .car-display {
-  display: flex;
-  width: 40vw;
-}
-
 </style>
