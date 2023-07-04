@@ -44,7 +44,7 @@ async function changeUser() {
         <h2>{{ user.id }} / {{ user.username }}</h2>
       </div>
       <div class="modal-body">
-        <div class="name">
+        <div class="standort">
           <label>Vorname:
             <input :value="user.vorname" disabled type="text">
           </label>

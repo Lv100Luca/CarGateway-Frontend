@@ -17,13 +17,13 @@ const emits = defineEmits(['userID']);
     </div>
     <a class="v-border"/>
     <div class="right">
-      <div class="role-bottom">
+      <div class="information">
         <h3>{{ props.user!.username }}</h3>
         <h3>{{ getStringsFromRoles(props.user!.roles) }}</h3>
 <!--        <h3>{{getHighestRole(user.roles)}}</h3>-->
       </div>
       <a class="h-border"/>
-      <div class="name-top">
+      <div class="time">
         <h3>{{ props.user!.vorname }}</h3>
         <h3>{{ props.user!.nachname }}</h3>
 
@@ -55,7 +55,7 @@ const emits = defineEmits(['userID']);
   justify-content: center;
 }
 
-.name-top, .role-bottom {
+.time, .information {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;

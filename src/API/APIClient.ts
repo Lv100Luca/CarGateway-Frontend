@@ -66,6 +66,7 @@ export default class APIClient {
                 return await response.json() as TResponse;
             } catch (e) {
                 console.log("Json cant be Converted to TResponse")
+                return response;
             }
         }
         //todo: error handling
@@ -79,6 +80,14 @@ export default class APIClient {
             method: "PATCH",
             headers: (requireAuth ? this.getAuthHeader() : this.getEmptyHeader()), //todo: make method
             body: JSON.stringify(body), // jsonify body object
+        });
+        return response.ok;
+    }
+
+    public static async deleteRequest(endpoint: string, requireAuth: boolean) {
+        const response = await fetch(this.baseURL + endpoint, {
+            method: "DELETE",
+            headers: (requireAuth ? this.getAuthHeader() : this.getEmptyHeader()), //todo: make method
         });
         return response.ok;
     }

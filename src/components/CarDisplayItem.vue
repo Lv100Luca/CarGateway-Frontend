@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type GetCarsResponseDTO from "@/DTO/GetCarsResponseDTO";
+import type CarDTO from "@/DTO/CarDTO";
 
 
 const props = defineProps({
   car: {
-    type: Object as () => GetCarsResponseDTO,
+    type: Object as () => CarDTO,
     required: true
   }
 })
@@ -17,11 +17,11 @@ const emits = defineEmits(['carID']);
     </div>
     <a class="v-border"/>
     <div class="right">
-      <div class="role-bottom">
+      <div class="information">
         <h3>{{ props.car!.name }}</h3>
       </div>
       <a class="h-border"/>
-      <div class="name-top">
+      <div class="time">
         <h3>{{props.car!.standort.id }}</h3>
         <h3>{{ props.car!.standort.name }}</h3>
       </div>
@@ -52,7 +52,7 @@ const emits = defineEmits(['carID']);
   justify-content: center;
 }
 
-.name-top, .role-bottom {
+.time, .information {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;

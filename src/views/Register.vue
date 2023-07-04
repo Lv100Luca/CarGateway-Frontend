@@ -24,7 +24,7 @@ const isComplete = computed(() => {
 async function register() {
   console.log("submitting");
   try {
-    const response = await APIClient.postRequest<UserRegisterDTO>("/user/register", true, {
+    const response = await APIClient.postRequest<UserRegisterDTO, any>("/user/register", true, {
       "vorname": vorname.value,
       "nachname": nachname.value,
       "username": username.value,
@@ -50,7 +50,7 @@ async function register() {
   <div class="wrapper">
     <form class="register-from">
       <h1>Register</h1>
-      <div class="name">
+      <div class="standort">
         <label style="display: flex; flex-direction: column">Vorname:
           <input required type="text" v-model="vorname" placeholder="vorname">
         </label>
@@ -85,14 +85,14 @@ async function register() {
   width: 40%;
 }
 
-.name {
+.standort {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   gap: 1rem;
 }
 
-.name > label {
+.standort > label {
   width: 50%;
 }
 </style>
