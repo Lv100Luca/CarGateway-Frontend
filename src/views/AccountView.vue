@@ -94,7 +94,8 @@ async function deleteReservation() {
         <input @click="deleteReservation()" v-if="(selectedReservationId !== -1)" class="delete"
                type="button" :value="'Delete: ' + selectedReservationId">
       </div>
-      <PageSelector :page-limit="pageLimit" class="selector" @PageNr="args => nrOfPage = args"></PageSelector>
+      <PageSelector v-if="reservations.length != 0" :page-limit="pageLimit" class="selector"
+                    @PageNr="args => nrOfPage = args"></PageSelector>
       <ReservationDisplayItem v-for="reservation in reservations" :key="reservation.reservierungsId" :class="{ 'highlighted': selectedReservationId === reservation.reservierungsId }"
                               :reservation="reservation" class="displayItem"
                               @reserverungsID="id => selectedReservationId = id"/>
