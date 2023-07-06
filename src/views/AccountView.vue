@@ -60,6 +60,7 @@ async function deleteReservation() {
     console.log("Reservation not deleted " + selectedReservationId.value)
   }
   await loadPage();
+  selectedReservationId.value = -1;
 }
 </script>
 
