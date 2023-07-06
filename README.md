@@ -81,3 +81,9 @@ docker run -it -p 5173:5173 --rm --name frontend (docker images -q cargateway-fr
 ```sh
 docker stop (docker images -q cargateway-frontend)
 ```
+
+### Kill all cache IF NECESSARY
+
+```sh
+docker builder prune -a
+```
