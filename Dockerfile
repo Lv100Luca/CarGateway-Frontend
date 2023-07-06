@@ -19,4 +19,4 @@ COPY . .
 RUN npm run build
 
 EXPOSE 5173
-CMD ["http-server", "dist", "-p5173"]
+CMD ["http-server", "dist", "5173"]
