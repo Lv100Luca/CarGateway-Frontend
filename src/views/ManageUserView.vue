@@ -43,8 +43,8 @@ function selectUser(userID: number) {
 }
 
 async function activate() {
-  const repsonse = await APIClient.patchRequest("/user/activate/" + selectedUser.value!.id, true, {});
-  if (repsonse) {
+  const response = await APIClient.patchRequest("/user/activate/" + selectedUser.value!.id, true, {});
+  if (response) {
     console.log("Activated")
     await loadUsers();
   }
@@ -53,8 +53,8 @@ async function activate() {
 
 async function deactivate() {
   if (selectedUser.value!.roles.length != 0) {
-    const repsonse = await APIClient.patchRequest("/user/deactivate/" + selectedUser.value!.id, true, {});
-    if (repsonse) {
+    const response = await APIClient.patchRequest("/user/deactivate/" + selectedUser.value!.id, true, {});
+    if (response) {
       console.log("Deactivated")
       await loadUsers();
     }

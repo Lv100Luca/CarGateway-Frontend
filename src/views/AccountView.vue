@@ -137,7 +137,6 @@ async function deleteReservation() {
 }
 
 .highlighted {
-  /* Add your highlight style here */
   background-color: #D3D3D3;
 }
 
