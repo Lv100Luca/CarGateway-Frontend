@@ -55,25 +55,25 @@ npm run lint
 ### Build the Docker-Image with this Command
 
 ```sh
-docker build -t cargateway-frontend:latest .
+docker build -t cargateway-frontend2:latest .
 ```
 
 Option to run without cache
 
 ```sh
-docker build --no-cache -t cargateway-frontend:latest .
+docker build --no-cache -t cargateway-frontend2:latest .
 ```
 
 ### ID of newly created Image
 
 ```shell
-docker images -q cargateway-frontend
+docker images -q cargateway-frontend2
 ```
 
 ### Run the Docker-Image on port 5173
 
 ```sh
-docker run -it -p 5173:5173 --rm --name frontend (docker images -q cargateway-frontend)
+docker run -it -p 5173:5173 --rm --name frontend (docker images -q cargateway-frontend2)
 ```
 
 
