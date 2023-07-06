@@ -66,12 +66,13 @@ export default class APIClient {
                 return await response.json() as TResponse;
             } catch (e) {
                 console.log("Json cant be Converted to TResponse")
-                return response;
+                return response as Response;
             }
         }
         //todo: error handling
         else {
             console.log("Error in postRequest at endpoint: " + endpoint);
+            return response as Response;
         }
     }
 
