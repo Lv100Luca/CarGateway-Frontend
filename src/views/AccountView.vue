@@ -59,6 +59,7 @@ async function deleteReservation() {
   } else {
     console.log("Reservation not deleted " + selectedReservationId.value)
   }
+  await loadPage();
 }
 </script>
 
