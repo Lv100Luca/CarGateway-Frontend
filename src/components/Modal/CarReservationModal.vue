@@ -18,11 +18,19 @@ const userData = useUserDataStore();
 
 const dateFrom = ref(null);
 const dateTo = ref(null);
+const errorMessage = ref("");
+
+function close() {
+  dateFrom.value = null;
+  dateTo.value = null;
+  errorMessage.value = "";
+  emits('close');
+}
 
 async function bookReservation() {
   console.log(Date.parse(dateFrom.value!));
   console.log(Date.parse(dateTo.value!));
-  let response;
+  let response: Response;
   try {
 
     response = await APIClient.postRequest<ReservierungDTO, Response>("/reservierung", true, {
@@ -32,17 +40,29 @@ async function bookReservation() {
       "endZeitpunkt": Date.parse(dateTo.value!)
     });
   } catch (e) {
-    console.log("error in reservation");
+    console.log("error in reservation catch");
+    return;
+  }
+  if (response == undefined) {
+    console.log("error in reservation null");
+    return;
+  }
+  if (response.status == 401) {
+    console.log("error in reservation 401");
+    errorMessage.value = "Du brauchst ein Aktives Konto um diese Reservierung zu buchen";
+    return;
+  }
+  if (response.status == 409) {
+    console.log("error in reservation 409");
+    errorMessage.value = "Dieses Fahrzeug ist bereits reserviert";
     return;
   }
   if (response) {
     console.log("reservation ok");
     emits('close');
-  } else {
-    console.log("error in reservation");
+    return;
   }
-  dateFrom.value = null;
-  dateTo.value = null;
+
 }
 
 </script>
@@ -68,8 +88,9 @@ async function bookReservation() {
           <input type="datetime-local" v-model="dateTo">
         </div>
         <input :disabled="!((dateTo ?? 1) > (dateFrom ?? 2))" type="button" value="Book" @click="bookReservation()">
-        <input type="button" value="Close" @click="$emit('close')">
-
+        <input type="button" value="Close" @click="close">
+        <br>
+        <label v-if="errorMessage != ''">{{ errorMessage }}</label>
       </div>
     </div>
   </div>
