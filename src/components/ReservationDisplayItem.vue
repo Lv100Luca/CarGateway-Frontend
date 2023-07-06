@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type UserResponseDTO from "@/DTO/UserResponseDTO";
-import {getStringsFromRoles} from "./models/Role";
 import type {UserReservierungDTO} from "@/DTO/UserReservierungDTO";
 
 const props = defineProps({
@@ -68,10 +66,4 @@ const emits = defineEmits(['reserverungsID']);
 .v-border {
   border-right: gray 2px solid;
 }
-
-.h-border {
-  border-top: gray 2px solid;
-}
-
-
 </style>

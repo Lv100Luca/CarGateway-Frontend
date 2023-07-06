@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import APIClient from "@/API/APIClient";
-import UserListResponseDTO from "@/DTO/UserListResponseDTO";
 import {onMounted, ref, watch} from "vue";
-import UserResponseDTO from "@/DTO/UserResponseDTO";
+import type UserResponseDTO from "@/DTO/UserResponseDTO";
 import UserDisplayItem from "@/components/UserDisplayItem.vue";
 import PageSelector from "@/components/PageSelector.vue";
 import {getHighestRole} from "@/components/models/Role";
+import type UserListResponseDTO from "@/DTO/UserListResponseDTO";
 
 const users = ref<UserResponseDTO[]>([]);
 const selectedUser = ref<UserResponseDTO | null>(null);

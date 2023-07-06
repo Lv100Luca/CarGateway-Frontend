@@ -1,4 +1,3 @@
-import CarDTO from "@/DTO/CarDTO";
 import type OMSendHelpDTO from "@/DTO/OMSendHelpDTO";
 
 export interface UserReservierungDTO {

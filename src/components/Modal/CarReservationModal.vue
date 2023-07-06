@@ -43,10 +43,11 @@ async function bookReservation() {
     console.log("error in reservation catch");
     return;
   }
-  if (response == undefined) {
-    console.log("error in reservation null");
-    return;
-  }
+
+  // if (response == null) {
+  //   console.log("error in reservation null");
+  //   return;
+  // }
   if (response.status == 401) {
     console.log("error in reservation 401");
     errorMessage.value = "Du brauchst ein Aktives Konto um diese Reservierung zu buchen";
