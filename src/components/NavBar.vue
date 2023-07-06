@@ -66,6 +66,7 @@ const menuItemsRight = computed<MenuItem[]>(() => {
         <RouterLink to="/" class="logo-wrapper">
           <a class="logo"/>
         </RouterLink>
+        <RouterLink to="/">Cars</RouterLink>
       </div>
       <div class="nav-right">
         <RouterLink
