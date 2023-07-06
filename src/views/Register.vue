@@ -24,7 +24,7 @@ const isComplete = computed(() => {
 async function register() {
   console.log("submitting");
   try {
-    const response = await APIClient.postRequest<UserRegisterDTO, any>("/user/register", true, {
+    await APIClient.postRequest<UserRegisterDTO, any>("/user/register", true, {
       "vorname": vorname.value,
       "nachname": nachname.value,
       "username": username.value,
