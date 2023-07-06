@@ -73,7 +73,7 @@ const menuItemsRight = computed<MenuItem[]>(() => {
             v-for="item in menuItemsRight"
             :to="item.to"
             :key="item.label">
-          {{item.label}}
+          {{ item.label }}
         </RouterLink>
       </div>
     </div>

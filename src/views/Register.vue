@@ -20,6 +20,7 @@ const isComplete = computed(() => {
   return (vorname.value !== "" && nachname.value !== "" && username.value !== "" && password.value !== "");
 
 })
+
 async function register() {
   console.log("submitting");
   try {

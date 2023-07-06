@@ -20,7 +20,7 @@ const emits = defineEmits(['userID']);
       <div class="information">
         <h3>{{ props.user!.username }}</h3>
         <h3>{{ getStringsFromRoles(props.user!.roles) }}</h3>
-<!--        <h3>{{getHighestRole(user.roles)}}</h3>-->
+        <!--        <h3>{{getHighestRole(user.roles)}}</h3>-->
       </div>
       <a class="h-border"/>
       <div class="time">

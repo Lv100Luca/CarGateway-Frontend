@@ -13,6 +13,6 @@ onMounted(async () => await userData.fetchSelf());
   <RouterView/>
 </template>
 
-<style scoped >
+<style scoped>
 
 </style>

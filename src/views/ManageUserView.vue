@@ -67,7 +67,8 @@ async function deactivate() {
     <h2 v-if="selectedUser !== null">{{ selectedUser!.id }} / {{ selectedUser!.username }}</h2>
     <input @click="activate()" v-if="(selectedUser !== null) && selectedUser.roles.length == 0" class="activate"
            type="button" value="Activate">
-    <input @click="deactivate()" v-if="(selectedUser !== null) && getHighestRole(selectedUser.roles) == 1" class="deactivate"
+    <input v-if="(selectedUser !== null) && getHighestRole(selectedUser.roles) == 1" class="deactivate"
+           @click="deactivate()"
            type="button" value="Deactivate">
   </div>
   <PageSelector class="selector" :page-limit="pageLimit" @PageNr="args => pageNr = args"></PageSelector>

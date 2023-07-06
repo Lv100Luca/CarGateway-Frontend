@@ -41,6 +41,7 @@ function selectCar(carID: number) {
   }
   showModal.value = true;
 }
+
 async function loadPage() {
   const endpoint = "/fahrzeuge?pagenr=" + nrOfPage.value + "&pagesize=" + nrOfElementsOnPage.value;
   const response = await APIClient.getRequest<CarResponseDTO>(endpoint, true);
@@ -53,7 +54,8 @@ async function loadPage() {
 
 <template>
   <div>
-    <CarReservationModal :show="showModal" :car="selectedCar!" @close="showModal = false" @success="loadPage"></CarReservationModal>
+    <CarReservationModal :car="selectedCar!" :show="showModal" @close="showModal = false"
+                         @success="loadPage"></CarReservationModal>
     <div class="page">
       <h1>Cars</h1>
       <div class="cars">
@@ -72,6 +74,7 @@ async function loadPage() {
   align-items: center;
   gap: .5rem;
 }
+
 .cars {
   display: flex;
   flex-direction: column;
