@@ -76,11 +76,6 @@ docker images -q cargateway-frontend
 docker run -it -p 5173:5173 --rm --name frontend (docker images -q cargateway-frontend)
 ```
 
-### Stop the Docker-Image
-
-```sh
-docker stop (docker images -q cargateway-frontend)
-```
 
 ### Kill all cache IF NECESSARY
 
