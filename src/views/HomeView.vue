@@ -57,6 +57,7 @@ async function loadPage() {
     <CarReservationModal :car="selectedCar!" :show="showModal" @close="showModal = false"
                          @success="loadPage"></CarReservationModal>
     <div class="page">
+      <h1>420</h1>
       <h1>Cars</h1>
       <div class="cars">
         <CarDisplayItem v-for="car in listOfCarsPages" :car="car" :key="car.id" @carID="carID => selectCar(carID)"/>
