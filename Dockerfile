@@ -15,8 +15,9 @@ RUN npm install
 # copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
 
+
 # build app for production with minification
 RUN npm run build
-
+EXPOSE 1234
 EXPOSE 5173
 CMD ["http-server", "dist", "-p5173"]
