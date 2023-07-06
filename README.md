@@ -64,6 +64,12 @@ Option to run without cache
 docker build --no-cache -t cargateway-frontend:latest .
 ```
 
+### ID of newly created Image
+
+```shell
+docker images -q cargateway-frontend
+```
+
 ### Run the Docker-Image on port 5173
 
 ```sh
