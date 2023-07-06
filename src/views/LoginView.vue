@@ -22,7 +22,7 @@ async function handleLogin() {
 
     if (typeof returnRoute === "string") {
       console.log("Pushing to " + returnRoute.replace("/", ""));
-      await router.push(returnRoute.replace("/", "")); // fixme
+      await router.push(returnRoute.replace("/", ""));
       return;
     }
 

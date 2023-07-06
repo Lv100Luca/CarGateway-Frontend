@@ -25,13 +25,15 @@ export const useUserDataStore = defineStore('UserDataStore', () => {
             return false;
         } else {
             console.log("Login OK")
-            APIClient.token = response.token;
+            if ("token" in response) { // fixme
+                APIClient.token = response.token;
+            }
             await fetchSelf();
             return true;
         }
     }
 
-    function logout() { // todo async yes?
+    function logout() {
         APIClient.token = null;
         state.user = null;
 

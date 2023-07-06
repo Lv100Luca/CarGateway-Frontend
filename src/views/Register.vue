@@ -5,7 +5,7 @@ import {computed, ref} from "vue";
 import APIClient from "@/API/APIClient";
 // @ts-ignore
 import type UserRegisterDTO from "@/DTO/UserRegisterDTO";
-import {useUserDataStore} from "../stores/userDataStore";
+import {useUserDataStore} from "@/stores/userDataStore";
 import {useRouter} from "vue-router";
 
 const userDataStore = useUserDataStore();
@@ -20,7 +20,6 @@ const isComplete = computed(() => {
   return (vorname.value !== "" && nachname.value !== "" && username.value !== "" && password.value !== "");
 
 })
-//todo: fix registering into eisting account causes login
 async function register() {
   console.log("submitting");
   try {
