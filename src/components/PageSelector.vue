@@ -26,7 +26,7 @@ function decrement() {
 <template>
   <div class="wrapper">
     <input class="button" :disabled="(pageNr <= 0)" type="button" value="-" @click="decrement()">
-    <input class="page-nr" disabled="disabled" type="text" :value="(pageNr + 1) + ' / ' + (Math.ceil(pageLimit) + 1)">
+    <input :value="(pageNr + 1) + ' / ' + (Math.ceil(pageLimit) + 1)" class="page-nr" disabled type="text">
     <input class="button" :disabled="(pageNr >= props.pageLimit)" type="button" value="+" @click="increment()">
   </div>
 </template>

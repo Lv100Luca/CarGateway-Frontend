@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import UserResponseDTO from "@/DTO/UserResponseDTO";
+import type UserResponseDTO from "@/DTO/UserResponseDTO";
 import {computed, ref} from "vue";
 import {getRolesFromString, getStringsFromRoles} from "@/components/models/Role";
 import APIClient from "@/API/APIClient";
