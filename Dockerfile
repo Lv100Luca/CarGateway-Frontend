@@ -15,6 +15,7 @@ RUN npm run build
 
 # Stage 2
 FROM nginx:alpine as production-build
+# copy nginx configuration into webserver
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
 ## Remove default nginx index page
