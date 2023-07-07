@@ -28,6 +28,9 @@ function close() {
 }
 
 async function bookReservation() {
+  if (props.car == null) {
+    return;
+  }
   let response: Response;
   try {
 
