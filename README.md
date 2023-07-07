@@ -76,6 +76,19 @@ docker images -q cargateway-frontend
 docker run -it -p 5173:5173 --rm --name frontend cargateway-frontend:latest
 ```
 
+### Remove old container and Image
+
+```sh
+docker stop frontend
+```
+
+```sh
+docker rm frontend
+```
+
+```sh
+docker image rm cargateway-frontend
+```
 
 ### Kill all cache IF NECESSARY
 
