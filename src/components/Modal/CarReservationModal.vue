@@ -56,7 +56,7 @@ async function bookReservation() {
   }
   if (response) {
     console.debug("reservation ok");
-    emits('close');
+    close();
     return;
   }
 
