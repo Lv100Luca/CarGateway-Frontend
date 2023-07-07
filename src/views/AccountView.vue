@@ -2,12 +2,12 @@
 import {useUserDataStore} from "@/stores/userDataStore";
 import type UserResponseDTO from "@/DTO/UserResponseDTO";
 import APIClient from "@/API/APIClient";
-import {getStringsFromRoles} from "@/components/models/Role";
 import {onMounted, ref, watch} from "vue";
 import type ReservierungResponseDTO from "@/DTO/ReservierungResponseDTO";
 import ReservationDisplayItem from "@/components/ReservationDisplayItem.vue";
 import type {UserReservierungDTO} from "@/DTO/UserReservierungDTO";
 import PageSelector from "@/components/PageSelector.vue";
+import {getHighestRole, getStringsFromRoles, Role} from "@/components/models/Role";
 
 
 const userData = useUserDataStore();
@@ -43,12 +43,14 @@ async function updateUser() {
 }
 
 async function loadPage() {
-  const endpoint = "/reservierung?pagenr=" + nrOfPage.value + "&pagesize=" + nrOfElementsOnPage.value;
-  const response = await APIClient.getRequest<ReservierungResponseDTO>(endpoint, true);
-  if (response != null) {
-    console.log(response)
-    reservations.value = response.content;
-    nrOfTotalElements.value = response.nrOfTotalElements;
+  if (getHighestRole(userData.user.roles) >= Role.user) {
+    const endpoint = "/reservierung?pagenr=" + nrOfPage.value + "&pagesize=" + nrOfElementsOnPage.value;
+    const response = await APIClient.getRequest<ReservierungResponseDTO>(endpoint, true);
+    if (response != null) {
+      console.log(response)
+      reservations.value = response.content;
+      nrOfTotalElements.value = response.nrOfTotalElements;
+    }
   }
 }
 
@@ -98,7 +100,8 @@ async function deleteReservation() {
       </div>
       <PageSelector v-if="reservations.length != 0" :page-limit="pageLimit" class="selector"
                     @PageNr="args => nrOfPage = args"></PageSelector>
-      <ReservationDisplayItem v-for="reservation in reservations" :key="reservation.reservierungsId" :class="{ 'highlighted': selectedReservationId === reservation.reservierungsId }"
+      <ReservationDisplayItem v-for="reservation in reservations" :key="reservation.reservierungsId"
+                              :class="{ 'highlighted': selectedReservationId === reservation.reservierungsId }"
                               :reservation="reservation" class="displayItem"
                               @reserverungsID="id => selectedReservationId = id"/>
     </div>
