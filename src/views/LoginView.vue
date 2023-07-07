@@ -51,7 +51,7 @@ async function handleLogin() {
       </div>
       <label class="text-label">
         Username:
-        <input v-model="username" type="text" class="username">
+        <input v-model="username" class="username" type="text" @keydown.enter="handleLogin()">
       </label>
       <label class="text-label">
         Password:
