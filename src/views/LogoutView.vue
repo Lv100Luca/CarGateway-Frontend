@@ -9,7 +9,7 @@ const router = useRouter();
 onMounted(async () => {
   if (userDataStore.hasUser) {
     userDataStore.logout();
-    console.log("Logged Out User")
+    console.debug("Logged Out User")
     await router.push("/")
   }
 })

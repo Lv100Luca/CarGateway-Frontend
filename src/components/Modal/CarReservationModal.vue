@@ -28,8 +28,6 @@ function close() {
 }
 
 async function bookReservation() {
-  console.log(Date.parse(dateFrom.value!));
-  console.log(Date.parse(dateTo.value!));
   let response: Response;
   try {
 
@@ -40,21 +38,21 @@ async function bookReservation() {
       "endZeitpunkt": Date.parse(dateTo.value!)
     });
   } catch (e) {
-    console.log("error in reservation catch");
+    console.debug("error in reservation catch");
     return;
   }
   if (response.status == 401) {
-    console.log("error in reservation 401");
+    console.debug("error in reservation 401");
     errorMessage.value = "Du brauchst ein Aktives Konto um diese Reservierung zu buchen";
     return;
   }
   if (response.status == 409) {
-    console.log("error in reservation 409");
+    console.debug("error in reservation 409");
     errorMessage.value = "Dieses Fahrzeug ist bereits reserviert";
     return;
   }
   if (response) {
-    console.log("reservation ok");
+    console.debug("reservation ok");
     emits('close');
     return;
   }

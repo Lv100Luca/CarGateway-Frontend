@@ -45,7 +45,7 @@ function selectUser(userID: number) {
 async function activate() {
   const response = await APIClient.patchRequest("/user/activate/" + selectedUser.value!.id, true, {});
   if (response) {
-    console.log("Activated")
+    console.debug("Activated")
     await loadUsers();
   }
 }
@@ -55,7 +55,7 @@ async function deactivate() {
   if (selectedUser.value!.roles.length != 0) {
     const response = await APIClient.patchRequest("/user/deactivate/" + selectedUser.value!.id, true, {});
     if (response) {
-      console.log("Deactivated")
+      console.debug("Deactivated")
       await loadUsers();
     }
   }

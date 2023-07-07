@@ -16,12 +16,12 @@ async function handleLogin() {
   let loginSuccess: boolean;
   isLoading.value = true;
   loginSuccess = await userDataStore.login(username.value, password.value);
-  console.log(loginSuccess)
+  console.debug(loginSuccess)
   if (loginSuccess) {
     const returnRoute = route.query.return;
 
     if (typeof returnRoute === "string") {
-      console.log("Pushing to " + returnRoute.replace("/", ""));
+      console.debug("Pushing to " + returnRoute.replace("/", ""));
       await router.push(returnRoute.replace("/", ""));
       return;
     }
@@ -29,9 +29,8 @@ async function handleLogin() {
     await router.push("/")
     return;
   } else {
-    console.log("User/Password wrong")
+    console.debug("User/Password wrong")
   }
-
 }
 </script>
 

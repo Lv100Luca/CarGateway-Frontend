@@ -38,7 +38,8 @@ export default class APIClient {
     }
 
     public static async getRequest<TResponse>(endpoint: string, requireAuth: boolean) {
-        console.log("Running Get at: " + endpoint)
+
+        console.debug("Running Get at: " + endpoint)
         const response = await fetch(this.baseURL + endpoint, {
             method: "GET",
             headers: (requireAuth ? this.getAuthHeader() : this.getEmptyHeader()) //todo: make method
@@ -48,7 +49,7 @@ export default class APIClient {
         }
         //todo: error handling
         else {
-            console.log("Error in getRequest at endpoint: " + endpoint)
+            console.debug("Error in getRequest at endpoint: " + endpoint)
             return null;
         }
 
@@ -62,16 +63,16 @@ export default class APIClient {
         });
         if (response.ok) { // todo: more response cases
             try {
-                console.log("Try Returning Json as TResponse");
+                console.debug("Try Returning Json as TResponse");
                 return await response.json() as TResponse;
             } catch (e) {
-                console.log("Json cant be Converted to TResponse")
+                console.debug("Json cant be Converted to TResponse")
                 return response as Response;
             }
         }
         //todo: error handling
         else {
-            console.log("Error in postRequest at endpoint: " + endpoint);
+            console.debug("Error in postRequest at endpoint: " + endpoint);
             return response as Response;
         }
     }

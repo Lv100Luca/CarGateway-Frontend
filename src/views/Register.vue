@@ -22,7 +22,7 @@ const isComplete = computed(() => {
 })
 
 async function register() {
-  console.log("submitting");
+  console.debug("submitting");
   try {
     await APIClient.postRequest<UserRegisterDTO, any>("/user/register", true, {
       "vorname": vorname.value,
@@ -31,16 +31,16 @@ async function register() {
       "password": password.value
     });
   } catch (e) {
-    console.log("error in Register");
+    console.debug("error in Register");
     vorname.value = "";
     nachname.value = "";
     username.value = "";
     password.value = "";
-    console.log(e);
+    console.debug(e);
   }
-  console.log("Register OK");
+  console.debug("Register OK");
   if (await userDataStore.login(username.value, password.value)) {
-    console.log("Login after RegisterOK");
+    console.debug("Login after RegisterOK");
     await router.push("/account")
   }
 }

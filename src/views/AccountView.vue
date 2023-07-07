@@ -37,7 +37,7 @@ async function updateUser() {
   ); //todo change how this works maybe | maybe make changes here directly effect logged in User
   if (response) {
 
-    console.log("Name Changed, fetching self")
+    console.debug("Name Changed, fetching self")
     await userData.fetchSelf();
   }
 }
@@ -47,7 +47,7 @@ async function loadPage() {
     const endpoint = "/reservierung?pagenr=" + nrOfPage.value + "&pagesize=" + nrOfElementsOnPage.value;
     const response = await APIClient.getRequest<ReservierungResponseDTO>(endpoint, true);
     if (response != null) {
-      console.log(response)
+      console.debug(response)
       reservations.value = response.content;
       nrOfTotalElements.value = response.nrOfTotalElements;
     }
@@ -57,9 +57,9 @@ async function loadPage() {
 async function deleteReservation() {
   const response = await APIClient.deleteRequest("/reservierung/" + selectedReservationId.value, true);
   if (response) {
-    console.log("Reservation deleted: " + selectedReservationId.value)
+    console.debug("Reservation deleted: " + selectedReservationId.value)
   } else {
-    console.log("Reservation not deleted " + selectedReservationId.value)
+    console.debug("Reservation not deleted " + selectedReservationId.value)
   }
   await loadPage();
   selectedReservationId.value = -1;

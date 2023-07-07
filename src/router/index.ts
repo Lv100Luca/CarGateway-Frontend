@@ -104,7 +104,7 @@ router.beforeEach(async (to, from) => {
     const role = getHighestRole(user?.roles ?? []);
 
     if (to.meta.minimumRole > role && !isAuth) {
-        console.log("Blocked Route to: " + to.path)
+        console.debug("Blocked Route to: " + to.path)
 
         return {name: "login", query: {return: to.path}} // routes user to Login
     }

@@ -28,7 +28,7 @@ async function changeUser() {
         "roles": getRolesFromString(selectedRoles.value)
       } as UserResponseDTO);
   if (response) {
-    console.log("Worked!");
+    console.debug("Worked!");
     emits('success')
     emits("close")
   }

@@ -21,10 +21,10 @@ export const useUserDataStore = defineStore('UserDataStore', () => {
                 "password": password
             });
         if (response == undefined) {
-            console.log("error in Login"); //todo Error handling
+            console.debug("error in Login"); //todo Error handling
             return false;
         } else {
-            console.log("Login OK")
+            console.debug("Login OK")
             if ("token" in response) { // fixme
                 APIClient.token = response.token;
             }
@@ -43,11 +43,11 @@ export const useUserDataStore = defineStore('UserDataStore', () => {
         if (state.user !== null) return state.user; // of we have a user, return it
         if (APIClient.token === null) return null; // when there s not token, return null
 
-        console.log("Fetching Self")
+        console.debug("Fetching Self")
         const response = await APIClient.getRequest<UserResponseDTO>("/user/self", true);
         try {
             if (response == null) {
-                console.log("Error Fetching self")
+                console.debug("Error Fetching self")
                 return null;
             } else {
 
@@ -56,7 +56,7 @@ export const useUserDataStore = defineStore('UserDataStore', () => {
                 return state.user;
             }
         } catch (e) {
-            console.log("Error in fetchSelf -> Returning Null")
+            console.debug("Error in fetchSelf -> Returning Null")
             return null;
         }
 
