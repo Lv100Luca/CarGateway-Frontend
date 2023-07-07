@@ -18,7 +18,7 @@ const nrOfTotalElements = ref(4);
 const selectedCar = ref<CarDTO | null>(null);
 const showModal = ref(false);
 const pageLimit = ref((nrOfTotalElements.value / nrOfElementsOnPage.value) - 1);
-
+const defaultCar: CarDTO = {"id": -1, "name": "null", "standort": {"id": -1, "name": "null"}}
 onMounted(async () => {
   if (userDataStore.hasUser) {
     await loadPage();
@@ -46,15 +46,19 @@ async function loadPage() {
   const endpoint = "/fahrzeuge?pagenr=" + nrOfPage.value + "&pagesize=" + nrOfElementsOnPage.value;
   const response = await APIClient.getRequest<CarResponseDTO>(endpoint, true);
   if (response != null) {
-    listOfCarsPages.value = response.content;
-    nrOfTotalElements.value = response.nrOfTotalElements;
+
+    if (response.content.length > 0) {
+      listOfCarsPages.value = response.content;
+      nrOfTotalElements.value = response.nrOfTotalElements;
+    }
   }
 }
 </script>
 
 <template>
   <div>
-    <CarReservationModal :car="selectedCar!" :show="showModal" @close="showModal = false"
+    <CarReservationModal v-if="selectCar !== null" :car="selectedCar ?? defaultCar" :show="showModal"
+                         @close="showModal = false"
                          @success="loadPage"></CarReservationModal>
     <div class="page">
       <h1>Cars</h1>
