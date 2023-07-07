@@ -2,7 +2,7 @@
 import {useUserDataStore} from "@/stores/userDataStore";
 import type UserResponseDTO from "@/DTO/UserResponseDTO";
 import APIClient from "@/API/APIClient";
-import {onMounted, ref, watch} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import type ReservierungResponseDTO from "@/DTO/ReservierungResponseDTO";
 import ReservationDisplayItem from "@/components/ReservationDisplayItem.vue";
 import type {UserReservierungDTO} from "@/DTO/UserReservierungDTO";
@@ -13,21 +13,21 @@ import {getHighestRole, getStringsFromRoles, Role} from "@/components/models/Rol
 const userData = useUserDataStore();
 const user = userData.user;
 
-const nrOfElementsOnPage = ref(5);
-const nrOfPage = ref(0);
-const nrOfTotalElements = ref(4);
-const pageLimit = ref((nrOfTotalElements.value / nrOfElementsOnPage.value) - 1);
+const elementsPerPage = ref(5);
+const page = ref(0);
+const totalElements = ref(4);
+const maxPage = computed(() => Math.ceil(totalElements.value / elementsPerPage.value) - 1);
 
 const reservations = ref<UserReservierungDTO[]>([]);
 const selectedReservationId = ref(-1);
 onMounted(() => {
   loadPage();
 })
-watch(nrOfElementsOnPage, () => {
-  nrOfPage.value = 0;
+watch(elementsPerPage, () => {
+  page.value = 0;
 });
 
-watch(nrOfPage, () => {
+watch(page, () => {
   loadPage();
 })
 
@@ -44,12 +44,12 @@ async function updateUser() {
 
 async function loadPage() {
   if (getHighestRole(userData.user.roles) >= Role.user) {
-    const endpoint = "/reservierung?pagenr=" + nrOfPage.value + "&pagesize=" + nrOfElementsOnPage.value;
+    const endpoint = "/reservierung?pagenr=" + page.value + "&pagesize=" + elementsPerPage.value;
     const response = await APIClient.getRequest<ReservierungResponseDTO>(endpoint, true);
     if (response != null) {
       console.debug(response)
       reservations.value = response.content;
-      nrOfTotalElements.value = response.nrOfTotalElements;
+      totalElements.value = response.nrOfTotalElements;
     }
   }
 }
@@ -98,8 +98,8 @@ async function deleteReservation() {
         <input @click="deleteReservation()" v-if="(selectedReservationId !== -1)" class="delete"
                type="button" :value="'Delete: ' + selectedReservationId">
       </div>
-      <PageSelector v-if="reservations.length != 0" :page-limit="pageLimit" class="selector"
-                    @PageNr="args => nrOfPage = args"></PageSelector>
+      <PageSelector v-if="reservations.length != 0" :page-limit="maxPage" class="selector"
+                    @PageNr="args => page = args"></PageSelector>
       <ReservationDisplayItem v-for="reservation in reservations" :key="reservation.reservierungsId"
                               :class="{ 'highlighted': selectedReservationId === reservation.reservierungsId }"
                               :reservation="reservation" class="displayItem"

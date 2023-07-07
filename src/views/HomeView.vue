@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted, ref, watch} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import {useUserDataStore} from "@/stores/userDataStore";
 import type CarDTO from "@/DTO/CarDTO";
 import APIClient from "@/API/APIClient";
@@ -9,15 +9,18 @@ import CarDisplayItem from "@/components/CarDisplayItem.vue";
 import PageSelector from "@/components/PageSelector.vue";
 import CarReservationModal from "@/components/Modal/CarReservationModal.vue";
 
+
 const router = useRouter();
 const userDataStore = useUserDataStore();
-const listOfCarsPages = ref<CarDTO[]>([]);
-const nrOfElementsOnPage = ref(4);
-const nrOfPage = ref(0);
-const nrOfTotalElements = ref(4);
+const cars = ref<CarDTO[]>([]);
+
+const elementsPerPage = ref(5);
+const page = ref(0);
+
+const totalElements = ref(0);
 const selectedCar = ref<CarDTO | null>(null);
 const showModal = ref(false);
-const pageLimit = ref((nrOfTotalElements.value / nrOfElementsOnPage.value) - 1);
+const pageLimit = computed(() => Math.ceil(totalElements.value / elementsPerPage.value) - 1);
 const defaultCar: CarDTO = {"id": -1, "name": "null", "standort": {"id": -1, "name": "null"}}
 onMounted(async () => {
   if (userDataStore.hasUser) {
@@ -26,16 +29,16 @@ onMounted(async () => {
     await router.push("/welcome");
   }
 })
-watch(nrOfElementsOnPage, () => {
-  nrOfPage.value = 0;
+watch(elementsPerPage, () => {
+  page.value = 0;
 });
 
-watch(nrOfPage, () => {
+watch(page, () => {
   loadPage();
 })
 
 function selectCar(carID: number) {
-  selectedCar.value = listOfCarsPages.value.find(car => car.id === carID) ?? null;
+  selectedCar.value = cars.value.find(car => car.id === carID) ?? null;
   if (selectedCar.value === null) {
     return;
   }
@@ -43,13 +46,13 @@ function selectCar(carID: number) {
 }
 
 async function loadPage() {
-  const endpoint = "/fahrzeuge?pagenr=" + nrOfPage.value + "&pagesize=" + nrOfElementsOnPage.value;
+  const endpoint = "/fahrzeuge?pagenr=" + page.value + "&pagesize=" + elementsPerPage.value;
   const response = await APIClient.getRequest<CarResponseDTO>(endpoint, true);
   if (response != null) {
 
     if (response.content.length > 0) {
-      listOfCarsPages.value = response.content;
-      nrOfTotalElements.value = response.nrOfTotalElements;
+      cars.value = response.content;
+      totalElements.value = response.nrOfTotalElements;
     }
   }
 }
@@ -62,10 +65,10 @@ async function loadPage() {
                          @success="loadPage"></CarReservationModal>
     <div class="page">
       <h1>Cars</h1>
+      <PageSelector class="selector" :page-limit="pageLimit" @PageNr="args => page = args"></PageSelector>
       <div class="cars">
-        <CarDisplayItem v-for="car in listOfCarsPages" :car="car" :key="car.id" @carID="carID => selectCar(carID)"/>
+        <CarDisplayItem v-for="car in cars" :car="car" :key="car.id" @carID="carID => selectCar(carID)"/>
       </div>
-      <PageSelector class="selector" :page-limit="pageLimit" @PageNr="args => nrOfPage = args"></PageSelector>
 
     </div>
   </div>

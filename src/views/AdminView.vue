@@ -10,17 +10,17 @@ import ChangeUserModal from "@/components/Modal/ChangeUserModal.vue";
 const users = ref<UserResponseDTO[]>([]);
 const selectedUser = ref<UserResponseDTO | null>(null);
 
-const pageNr = ref(0);
-const pageSize = 10;
-const totalNrOfElements = ref(5);
-const pageLimit = computed(() => Math.ceil(totalNrOfElements.value / pageSize) - 1);
+const page = ref(0);
+const elementsPerPage = 10;
+const totalElements = ref(5);
+const pageLimit = computed(() => Math.ceil(totalElements.value / elementsPerPage) - 1);
 
 const showModal = ref(false);
 
 onMounted(async () => {
   await loadUsers();
 })
-watch(pageNr, () => {
+watch(page, () => {
   loadUsers();
 })
 
@@ -34,10 +34,10 @@ function selectUser(userID: number) {
 }
 
 async function loadUsers() {
-  const response = await APIClient.getRequest<UserListResponseDTO>("/user/getall?pagenr=" + pageNr.value + "&pagesize=" + pageSize, true);
+  const response = await APIClient.getRequest<UserListResponseDTO>("/user/getall?pagenr=" + page.value + "&pagesize=" + elementsPerPage, true);
   if (response != null) {
     users.value = response.content;
-    totalNrOfElements.value = response.nrOfTotalElements;
+    totalElements.value = response.nrOfTotalElements;
     selectedUser.value = null;
   }
 }
@@ -51,7 +51,7 @@ async function loadUsers() {
     <div class="admin-wrapper">
       <h1>ADMIN Panel</h1>
       <pre>Selected User: {{ selectedUser }}</pre>
-      <PageSelector class="selector" :page-limit="pageLimit" @PageNr="args => pageNr = args"></PageSelector>
+      <PageSelector class="selector" :page-limit="pageLimit" @PageNr="args => page = args"></PageSelector>
       <div class="users">
         <UserDisplayItem v-for="user in users" v-bind:user="user" @userID="userID => selectUser(userID)"
                          :key="user.id"/>
