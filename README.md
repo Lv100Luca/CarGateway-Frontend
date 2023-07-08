@@ -1,3 +1,20 @@
+### Build the Docker-Image with this Command
+
+```sh
+docker build -t cargateway-frontend:latest .
+```
+
+
+### Run the Docker-Image on port 5173
+
+```sh
+docker run -it -p 5173:5173 --rm --name frontend cargateway-frontend:latest
+```
+
+
+
+
+
 # Frontend
 
 This template should help get you started developing with Vue 3 in Vite.
