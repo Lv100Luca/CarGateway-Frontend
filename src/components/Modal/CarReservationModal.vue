@@ -31,17 +31,15 @@ async function bookReservation() {
   if (props.car == null) {
     return;
   }
-  let response: Response;
-  try {
-
-    response = await APIClient.postRequest<ReservierungDTO, Response>("/reservierung", true, {
-      "fahrzeugId": props.car.id,
-      "userId": userData.user.id,
-      "startZeitpunkt": Date.parse(dateFrom.value!),
-      "endZeitpunkt": Date.parse(dateTo.value!)
-    });
-  } catch (e) {
-    console.debug("error in reservation catch");
+  const response = await APIClient.postRequest<ReservierungDTO, Response>("/reservierung", true, {
+    "fahrzeugId": props.car.id,
+    "userId": userData.user.id,
+    "startZeitpunkt": Date.parse(dateFrom.value!),
+    "endZeitpunkt": Date.parse(dateTo.value!)
+  });
+  if (response == null) {
+    console.debug("error in reservation 409");
+    errorMessage.value = "Dieses Fahrzeug ist bereits reserviert";
     return;
   }
   if (response.status == 401) {
@@ -49,17 +47,11 @@ async function bookReservation() {
     errorMessage.value = "Du brauchst ein Aktives Konto um diese Reservierung zu buchen";
     return;
   }
-  if (response.status == 409) {
-    console.debug("error in reservation 409");
-    errorMessage.value = "Dieses Fahrzeug ist bereits reserviert";
-    return;
-  }
   if (response) {
     console.debug("reservation ok");
     close();
     return;
   }
-
 }
 
 </script>
