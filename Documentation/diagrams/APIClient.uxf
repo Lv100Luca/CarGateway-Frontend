@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>40</x>
+      <y>150</y>
+      <w>820</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>APIClient
+--
+- _token: string | null
+- _baseURL: string
+--
++ getBaseURL(): string
++ getToken: string | null
++ setToken(string): null
++ getRequest&lt;TResponse&gt;(endpoint: string, requireAuth: boolean): Promise&lt;TResponse | null&gt;
++ postRequest&lt;TBody, TResponse&gt;(endpoint: string, requireAuth: boolean, body: TBody): Promise&lt;TResponse | Response | null&gt;
++ patchRequest&lt;TBody&gt;(endpoint: string, requireAuth: boolean, body: TBody): Promise&lt;boolean&gt;
++ deleteRequest(endpoint: string, requireAuth: boolean): Promise&lt;boolean&gt;
+- getAuthHeader(): any
+- getEmptyHeader(): any</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
