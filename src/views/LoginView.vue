@@ -11,6 +11,7 @@ const password = ref("");
 const router = useRouter();
 const route = useRoute();
 const isLoading = ref(false);
+const errorMsg = ref("");
 
 async function handleLogin() {
   let loginSuccess: boolean;
@@ -25,11 +26,17 @@ async function handleLogin() {
       await router.push(returnRoute.replace("/", ""));
       return;
     }
-
+    console.log("pushing login")
     await router.push("/")
+    errorMsg.value = "";
+
     return;
   } else {
     console.debug("User/Password wrong")
+    username.value = "";
+    password.value = "";
+    errorMsg.value = "User/Password wrong";
+    isLoading.value = false;
   }
 }
 </script>
@@ -39,7 +46,7 @@ async function handleLogin() {
 
     <div class="login">
       <h1 class="title">Login</h1>
-      <div class="selector" v-if="!(username=='admin')">
+      <div class="selector" v-if="!(username=='admin') && false">
         <select v-model="username">
           <option disabled value="">Please select one</option>
           <option>RedditAdminJoe</option>
@@ -57,7 +64,9 @@ async function handleLogin() {
         <input @keydown.enter="handleLogin()" v-model="password" type="password" class="password">
       </label>
       <router-link to="/register">Register</router-link>
-      <input :disabled="isLoading || (username == '') || (password == '')" class="login-button" type="button" value="Login" @click="handleLogin()">
+      <label style="color: red" v-if="errorMsg != ''">{{errorMsg}}</label>
+      <input :disabled="isLoading || (username == '') || (password == '')" class="login-button" type="button"
+             value="Login" @click="handleLogin()">
     </div>
   </div>
 </template>

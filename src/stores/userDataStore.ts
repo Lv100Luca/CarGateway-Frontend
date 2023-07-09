@@ -20,7 +20,7 @@ export const useUserDataStore = defineStore('UserDataStore', () => {
                 "username": login,
                 "password": password
             });
-        if (response == undefined) {
+        if (response === null) {
             console.debug("error in Login"); //todo Error handling
             return false;
         } else {

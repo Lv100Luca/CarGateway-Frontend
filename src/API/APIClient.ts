@@ -73,7 +73,7 @@ export default class APIClient {
         //todo: error handling
         else {
             console.debug("Error in postRequest at endpoint: " + endpoint);
-            return response as Response;
+            return null;
         }
     }
 
