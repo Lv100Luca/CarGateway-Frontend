@@ -29,7 +29,7 @@ async function handleLogin() {
     console.log("pushing login")
     await router.push("/")
     errorMsg.value = "";
-
+    isLoading.value = false;
     return;
   } else {
     console.debug("User/Password wrong")
