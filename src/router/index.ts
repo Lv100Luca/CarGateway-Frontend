@@ -113,6 +113,12 @@ router.beforeEach(async (to, from) => {
         return from;
     }
 
+    if (to.meta.minimumRole > role) {
+        return from;
+    }
+
+
+
 });
 
 export default router

@@ -6,7 +6,7 @@ import {useRoute, useRouter} from "vue-router";
 const userDataStore = useUserDataStore();
 
 const username = ref("");
-const password = ref("admin");
+const password = ref("");
 
 const router = useRouter();
 const route = useRoute();
@@ -57,7 +57,7 @@ async function handleLogin() {
         <input @keydown.enter="handleLogin()" v-model="password" type="password" class="password">
       </label>
       <router-link to="/register">Register</router-link>
-      <input :disabled="isLoading" class="login-button" type="button" value="Login" @click="handleLogin()">
+      <input :disabled="isLoading || (username == '') || (password == '')" class="login-button" type="button" value="Login" @click="handleLogin()">
     </div>
   </div>
 </template>
