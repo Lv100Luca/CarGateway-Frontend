@@ -41,7 +41,7 @@ export const useUserDataStore = defineStore('UserDataStore', () => {
 
     async function fetchSelf() {
         if (state.user !== null) return state.user; // of we have a user, return it
-        if (APIClient.token === null) return null; // when there s not token, return null
+        if (APIClient.token === null) return null;
 
         console.debug("Fetching Self")
         const response = await APIClient.getRequest<UserResponseDTO>("/user/self", true);

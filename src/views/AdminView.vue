@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import {computed, onMounted, ref, watch} from "vue";
 import type UserResponseDTO from "@/DTO/UserResponseDTO";
 import APIClient from "@/API/APIClient";
@@ -46,15 +46,15 @@ async function loadUsers() {
 
 <template>
   <div>
-    <ChangeUserModal :show="showModal" v-if="selectedUser !== null" :user="selectedUser"
+    <ChangeUserModal v-if="selectedUser !== null" :show="showModal" :user="selectedUser"
                      @close="showModal = false" @success="loadUsers"></ChangeUserModal>
     <div class="admin-wrapper">
       <h1>ADMIN Panel</h1>
       <pre>Selected User: {{ selectedUser }}</pre>
-      <PageSelector class="selector" :page-limit="pageLimit" @PageNr="args => page = args"></PageSelector>
+      <PageSelector :page-limit="pageLimit" class="selector" @PageNr="args => page = args"></PageSelector>
       <div class="users">
-        <UserDisplayItem v-for="user in users" v-bind:user="user" @userID="userID => selectUser(userID)"
-                         :key="user.id"/>
+        <UserDisplayItem v-for="user in users" :key="user.id" v-bind:user="user"
+                         @userID="userID => selectUser(userID)"/>
       </div>
     </div>
   </div>

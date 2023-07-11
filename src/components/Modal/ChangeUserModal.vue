@@ -14,10 +14,6 @@ const props = defineProps({
 const emits = defineEmits(['close', 'success']);
 const selectedRoles = ref(computed(() => getStringsFromRoles(props.user!.roles)).value);
 
-
-// const vorname = ref(props.user!.vorname)
-// const nachname = ref(props.user!.nachname)
-
 async function changeUser() {
   const response = await APIClient.patchRequest<UserResponseDTO>("/user/change", true,
       {
@@ -37,7 +33,6 @@ async function changeUser() {
 
 </script>
 <template>
-  <!--  <div v-if="props.show" class="modal-mask" @click="$emit('close')">-->
   <div v-if="props.show" class="modal-mask">
     <div class="modal-container">
       <div class="modal-header">

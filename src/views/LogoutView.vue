@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import {useUserDataStore} from "@/stores/userDataStore";
 import {useRouter} from "vue-router";
 import {onMounted} from "vue";

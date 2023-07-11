@@ -70,11 +70,11 @@ async function bookReservation() {
         </div>
         <div class="date-from">
           <label>From:</label>
-          <input type="datetime-local" v-model="dateFrom">
+          <input v-model="dateFrom" type="datetime-local">
         </div>
         <div class="date-to">
           <label>To:</label>
-          <input type="datetime-local" v-model="dateTo">
+          <input v-model="dateTo" type="datetime-local">
         </div>
         <input :disabled="!((dateTo ?? 1) > (dateFrom ?? 2))" type="button" value="Book" @click="bookReservation()">
         <input type="button" value="Close" @click="close">

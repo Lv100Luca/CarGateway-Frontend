@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type {UserReservierungDTO} from "@/DTO/UserReservierungDTO";
 
 const props = defineProps({

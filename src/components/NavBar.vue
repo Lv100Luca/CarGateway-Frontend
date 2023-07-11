@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import {computed} from "vue";
 import type MenuItem from "@/components/models/MenuItem";
 import {useUserDataStore} from "@/stores/userDataStore";
@@ -11,7 +11,6 @@ const menuItemsRight = computed<MenuItem[]>(() => {
   const items: MenuItem[] = [];
 
   if (userDataStore.hasUser && getHighestRole(userDataStore.user.roles) == 3) {
-    //adminpanel
     items.push({
       label: "Admin",
       to: {
@@ -63,7 +62,7 @@ const menuItemsRight = computed<MenuItem[]>(() => {
   <nav>
     <div class="nav-wrapper">
       <div class="nav-left">
-        <RouterLink to="/" class="logo-wrapper">
+        <RouterLink class="logo-wrapper" to="/">
           <a class="logo"/>
         </RouterLink>
         <RouterLink to="/">Cars</RouterLink>
@@ -71,8 +70,8 @@ const menuItemsRight = computed<MenuItem[]>(() => {
       <div class="nav-right">
         <RouterLink
             v-for="item in menuItemsRight"
-            :to="item.to"
-            :key="item.label">
+            :key="item.label"
+            :to="item.to">
           {{ item.label }}
         </RouterLink>
       </div>

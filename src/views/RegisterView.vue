@@ -1,9 +1,7 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 
 import {computed, ref} from "vue";
-// @ts-ignore
 import APIClient from "@/API/APIClient";
-// @ts-ignore
 import type UserRegisterDTO from "@/DTO/UserRegisterDTO";
 import {useUserDataStore} from "@/stores/userDataStore";
 import {useRouter} from "vue-router";
@@ -52,21 +50,21 @@ async function register() {
       <h1>Register</h1>
       <div class="standort">
         <label style="display: flex; flex-direction: column">Vorname:
-          <input required type="text" v-model="vorname" placeholder="vorname">
+          <input v-model="vorname" placeholder="vorname" required type="text">
         </label>
         <label style="display: flex; flex-direction: column">Nachname:
-          <input required type="text" v-model="nachname" placeholder="nachname">
+          <input v-model="nachname" placeholder="nachname" required type="text">
         </label>
       </div>
       <label class="username" style="display: flex; flex-direction: column">
         Username:
-        <input required type="text" v-model="username" placeholder="username">
+        <input v-model="username" placeholder="username" required type="text">
       </label>
       <label class="password" style="display: flex; flex-direction: column">
         Password:
-        <input required type="password" v-model="password" placeholder="password">
+        <input v-model="password" placeholder="password" required type="password">
       </label>
-      <input :disabled="!isComplete" type="button" @click="register" value="Register">
+      <input :disabled="!isComplete" type="button" value="Register" @click="register">
     </form>
   </div>
 </template>

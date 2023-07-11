@@ -1,20 +1,14 @@
 import {createRouter, createWebHistory} from 'vue-router'
-// @ts-ignore
 import HomeView from "@/views/HomeView.vue";
-// @ts-ignore
 import LoginView from "@/views/LoginView.vue";
-// @ts-ignore
 import AdminView from "@/views/AdminView.vue";
-// @ts-ignore
 import AccountView from "@/views/AccountView.vue";
-// @ts-ignore
 import LogoutView from "@/views/LogoutView.vue";
 import {getHighestRole, Role} from "@/components/models/Role";
 import "vue-router";
 import {useUserDataStore} from "@/stores/userDataStore";
 import ManageUserView from "@/views/ManageUserView.vue";
-// @ts-ignore
-import Register from "@/views/Register.vue";
+import Register from "@/views/RegisterView.vue";
 import WelcomeView from "@/views/WelcomeView.vue";
 
 const router = createRouter({
@@ -97,7 +91,6 @@ const router = createRouter({
 
 router.beforeEach(async (to, from) => {
     const userData = useUserDataStore();
-    // const user = userData.user;
     const user = await userData.fetchSelf();
     const isAuth = userData.hasUser;
 
@@ -116,8 +109,6 @@ router.beforeEach(async (to, from) => {
     if (to.meta.minimumRole > role) {
         return from;
     }
-
-
 
 });
 

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import {useUserDataStore} from "@/stores/userDataStore";
 import {ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
@@ -46,7 +46,7 @@ async function handleLogin() {
 
     <div class="login">
       <h1 class="title">Login</h1>
-      <div class="selector" v-if="!(username=='admin') && false">
+      <div v-if="!(username=='admin') && false" class="selector">
         <select v-model="username">
           <option disabled value="">Please select one</option>
           <option>RedditAdminJoe</option>
@@ -61,10 +61,10 @@ async function handleLogin() {
       </label>
       <label class="text-label">
         Password:
-        <input @keydown.enter="handleLogin()" v-model="password" type="password" class="password">
+        <input v-model="password" class="password" type="password" @keydown.enter="handleLogin()">
       </label>
       <router-link to="/register">Register</router-link>
-      <label style="color: red" v-if="errorMsg != ''">{{errorMsg}}</label>
+      <label v-if="errorMsg != ''" style="color: red">{{ errorMsg }}</label>
       <input :disabled="isLoading || (username == '') || (password == '')" class="login-button" type="button"
              value="Login" @click="handleLogin()">
     </div>

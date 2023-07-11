@@ -2,13 +2,15 @@ export type Body = any;
 const tokenKey = "token";
 export default class APIClient {
     private static _token: string | null = null;
-    private static _baseURL = "http://localhost:8080";
+
+    static get token(): string | null {
+        if (this._token === null) {
+            this._token = localStorage.getItem(tokenKey);
+        }
+        return this._token;
+    }
 
     // private static _baseURL = "http://172.31.1.23:8080";
-
-    static get baseURL(): string {
-        return this._baseURL;
-    }
 
     static set token(token: string | null) {
         if (token !== null) {
@@ -19,22 +21,10 @@ export default class APIClient {
         this._token = token;
     }
 
-    static get token(): string | null {
-        if (this._token === null) {
-            this._token = localStorage.getItem(tokenKey);
-        }
-        return this._token;
-    }
+    private static _baseURL = "http://localhost:8080";
 
-    private static getAuthHeader() {
-        return {
-            "Content-Type": "application/json",
-            'Authorization': 'Bearer ' + (this.token),
-        }
-    }
-
-    private static getEmptyHeader() {
-        return {"Content-Type": "application/json"}
+    static get baseURL(): string {
+        return this._baseURL;
     }
 
     public static async getRequest<TResponse>(endpoint: string, requireAuth: boolean) {
@@ -92,5 +82,16 @@ export default class APIClient {
             headers: (requireAuth ? this.getAuthHeader() : this.getEmptyHeader()), //todo: make method
         });
         return response.ok;
+    }
+
+    private static getAuthHeader() {
+        return {
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + (this.token),
+        }
+    }
+
+    private static getEmptyHeader() {
+        return {"Content-Type": "application/json"}
     }
 }

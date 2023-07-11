@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import {useUserDataStore} from "@/stores/userDataStore";
 import type UserResponseDTO from "@/DTO/UserResponseDTO";
 import APIClient from "@/API/APIClient";
@@ -80,10 +80,10 @@ async function deleteReservation() {
       </div>
       <div class="standort">
         <label style="display: flex; flex-direction: column">Name:
-          <input type="text" v-model="user.vorname">
+          <input v-model="user.vorname" type="text">
         </label>
         <label style="display: flex; flex-direction: column">Surname:
-          <input type="text" v-model="user.nachname">
+          <input v-model="user.nachname" type="text">
         </label>
       </div>
       <label class="role" style="display: flex; flex-direction: column">Role:
@@ -95,8 +95,8 @@ async function deleteReservation() {
       <h1>Reservations</h1>
       <div>
         <h2 v-if="selectedReservationId !== -1"></h2>
-        <input @click="deleteReservation()" v-if="(selectedReservationId !== -1)" class="delete"
-               type="button" :value="'Delete: ' + selectedReservationId">
+        <input v-if="(selectedReservationId !== -1)" :value="'Delete: ' + selectedReservationId" class="delete"
+               type="button" @click="deleteReservation()">
       </div>
       <PageSelector v-if="reservations.length != 0" :page-limit="maxPage" class="selector"
                     @PageNr="args => page = args"></PageSelector>

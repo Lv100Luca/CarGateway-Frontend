@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import APIClient from "@/API/APIClient";
 import {onMounted, ref, watch} from "vue";
 import type UserResponseDTO from "@/DTO/UserResponseDTO";
@@ -65,16 +65,16 @@ async function deactivate() {
   <h1>Manage</h1>
   <div>
     <h2 v-if="selectedUser !== null">{{ selectedUser!.id }} / {{ selectedUser!.username }}</h2>
-    <input @click="activate()" v-if="(selectedUser !== null) && selectedUser.roles.length == 0" class="activate"
-           type="button" value="Activate">
+    <input v-if="(selectedUser !== null) && selectedUser.roles.length == 0" class="activate" type="button"
+           value="Activate" @click="activate()">
     <input v-if="(selectedUser !== null) && getHighestRole(selectedUser.roles) == 1" class="deactivate"
-           @click="deactivate()"
-           type="button" value="Deactivate">
+           type="button"
+           value="Deactivate" @click="deactivate()">
   </div>
-  <PageSelector class="selector" :page-limit="pageLimit" @PageNr="args => pageNr = args"></PageSelector>
+  <PageSelector :page-limit="pageLimit" class="selector" @PageNr="args => pageNr = args"></PageSelector>
   <div class="users">
-    <UserDisplayItem v-for="user in users" v-bind:user="user" @userID="userID => selectUser(userID)"
-                     :class="{ 'highlighted': selectedID === user.id }"/>
+    <UserDisplayItem v-for="user in users" :class="{ 'highlighted': selectedID === user.id }" v-bind:user="user" :key="user.id"
+                     @userID="userID => selectUser(userID)"/>
   </div>
   <pre>Selected User: {{ selectedUser }}</pre>
 </template>
@@ -88,7 +88,6 @@ async function deactivate() {
 }
 
 .highlighted {
-  /* Add your highlight style here */
   background-color: #D3D3D3;
 }
 </style>

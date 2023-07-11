@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import {computed, onMounted, ref, watch} from "vue";
 import {useUserDataStore} from "@/stores/userDataStore";
 import type CarDTO from "@/DTO/CarDTO";
@@ -65,9 +65,9 @@ async function loadPage() {
                          @success="loadPage"></CarReservationModal>
     <div class="page">
       <h1>Cars</h1>
-      <PageSelector class="selector" :page-limit="pageLimit" @PageNr="args => page = args"></PageSelector>
+      <PageSelector :page-limit="pageLimit" class="selector" @PageNr="args => page = args"></PageSelector>
       <div class="cars">
-        <CarDisplayItem v-for="car in cars" :car="car" :key="car.id" @carID="carID => selectCar(carID)"/>
+        <CarDisplayItem v-for="car in cars" :key="car.id" :car="car" @carID="carID => selectCar(carID)"/>
       </div>
 
     </div>
