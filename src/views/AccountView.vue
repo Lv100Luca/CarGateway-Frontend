@@ -65,7 +65,7 @@ async function deleteReservation() {
   } else {
     console.debug("Reservation not deleted " + selectedReservationId.value)
   }
-  await loadPage();
+  await loadPage("Reservierung Gelöscht!");
   selectedReservationId.value = -1;
 }
 </script>
@@ -97,7 +97,7 @@ async function deleteReservation() {
       <label v-if="status != ''">{{ status }}</label>
     </div>
     <div class="reservation">
-      <h2 v-if="selectedReservationId !== -1">Reservations</h2>
+      <h2 v-if="reservations.length !== 0">Reservations</h2>
       <div>
         <input @click="deleteReservation()" v-if="(selectedReservationId !== -1)" class="delete"
                type="button" :value="'Delete: ' + selectedReservationId">

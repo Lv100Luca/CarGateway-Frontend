@@ -8,6 +8,17 @@ const props = defineProps({
   }
 })
 const emits = defineEmits(['reserverungsID']);
+
+function getDateString(date: Date): string {
+  let day: string = ('0' + date.getDate()).slice(-2);
+  let month: string = ("0" + (date.getMonth() + 1));
+  let year: string = date.getFullYear().toString();
+  let hour: string = ("0" + date.getHours()).slice(-2);
+  let min: string = ("0" + date.getMinutes()).slice(-2);
+
+  return `${day}.${month}.${year} - ${hour}:${min}`;
+}
+
 </script>
 <template>
   <div class="wrapper" @click="$emit('reserverungsID', reservation.reservierungsId)">
@@ -26,8 +37,8 @@ const emits = defineEmits(['reserverungsID']);
       </div>
       <hr>
       <div class="time">
-        <h3>{{ new Date(reservation.startZeitpunkt).toDateString() }} to
-          {{ new Date(reservation.endZeitpunkt).toDateString() }}</h3>
+        <h3>{{ getDateString(new Date(reservation.startZeitpunkt)) }} to
+          {{ getDateString(new Date(reservation.endZeitpunkt)) }}</h3>
       </div>
     </div>
   </div>
