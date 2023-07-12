@@ -38,14 +38,10 @@ async function bookReservation() {
     "endZeitpunkt": Date.parse(dateTo.value!)
   });
   console.log(response);
-  if (response?.status == 401) {
-    console.debug("error in reservation 401");
-    errorMessage.value = "Du brauchst ein Aktives Konto um diese Reservierung zu buchen";
-    return;
-  }
+  console.log(response?.status)
   if (response == null) {
-    console.debug("error in reservation 409");
-    errorMessage.value = "Dieses Fahrzeug ist bereits reserviert";
+    console.debug("error in reservation");
+    errorMessage.value = "Reservierung konnte nicht Abgeschlossen werden!";
     return;
   }
   if (response) {

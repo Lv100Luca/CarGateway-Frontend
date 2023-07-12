@@ -46,7 +46,7 @@ async function handleLogin() {
 
     <div class="login">
       <h1 class="title">Login</h1>
-      <div class="selector" v-if="!(username=='admin') && false">
+      <div v-if="!(username=='admin') && true" class="selector">
         <select v-model="username">
           <option disabled value="">Please select one</option>
           <option>RedditAdminJoe</option>

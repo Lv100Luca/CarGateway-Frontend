@@ -20,6 +20,8 @@ const maxPage = computed(() => Math.ceil(totalElements.value / elementsPerPage.v
 
 const reservations = ref<UserReservierungDTO[]>([]);
 const selectedReservationId = ref(-1);
+
+const status = ref("");
 onMounted(() => {
   loadPage();
 })
@@ -36,13 +38,15 @@ async function updateUser() {
   const response = await APIClient.patchRequest<UserResponseDTO>("/user/alter", true, user
   ); //todo change how this works maybe | maybe make changes here directly effect logged in User
   if (response) {
-
     console.debug("Name Changed, fetching self")
     await userData.fetchSelf();
+    await loadPage("Nutzer Aktualisiert!");
   }
 }
 
-async function loadPage() {
+async function loadPage(message: string = "") {
+  console.log("load")
+  status.value = message;
   if (getHighestRole(userData.user.roles) >= Role.user) {
     const endpoint = "/reservierung?pagenr=" + page.value + "&pagesize=" + elementsPerPage.value;
     const response = await APIClient.getRequest<ReservierungResponseDTO>(endpoint, true);
@@ -90,6 +94,7 @@ async function deleteReservation() {
         <input :value="getStringsFromRoles(user.roles)" disabled type="text">
       </label>
       <input type="button" value="Change Name" @click="updateUser()">
+      <label v-if="status != ''">{{ status }}</label>
     </div>
     <div class="reservation">
       <h2 v-if="selectedReservationId !== -1">Reservations</h2>
