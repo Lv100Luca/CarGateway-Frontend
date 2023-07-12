@@ -52,7 +52,7 @@ const router = createRouter({
             name: 'logout',
             component: LogoutView,
             meta: {
-                minimumRole: Role.user,
+                minimumRole: Role.none,
                 onlyGuest: false
             }
         },
