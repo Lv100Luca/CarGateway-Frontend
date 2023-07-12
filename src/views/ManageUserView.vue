@@ -76,7 +76,6 @@ async function deactivate() {
     <UserDisplayItem v-for="user in users" v-bind:user="user" @userID="userID => selectUser(userID)"
                      :class="{ 'highlighted': selectedID === user.id }"/>
   </div>
-  <pre>Selected User: {{ selectedUser }}</pre>
 </template>
 <style scoped>
 .activate {

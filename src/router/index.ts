@@ -61,7 +61,7 @@ const router = createRouter({
             name: 'account',
             component: AccountView,
             meta: {
-                minimumRole: Role.user,
+                minimumRole: Role.none,
                 onlyGuest: false
             }
         },
@@ -110,10 +110,12 @@ router.beforeEach(async (to, from) => {
     }
 
     if (to.meta.onlyGuest && isAuth) {
+        console.debug("Blocked1 Route to: " + to.path)
         return from;
     }
 
     if (to.meta.minimumRole > role) {
+        console.debug("Blocked2 Route to: " + to.path)
         return from;
     }
 

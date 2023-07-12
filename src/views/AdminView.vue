@@ -50,7 +50,6 @@ async function loadUsers() {
                      @close="showModal = false" @success="loadUsers"></ChangeUserModal>
     <div class="admin-wrapper">
       <h1>ADMIN Panel</h1>
-      <pre>Selected User: {{ selectedUser }}</pre>
       <PageSelector class="selector" :page-limit="pageLimit" @PageNr="args => page = args"></PageSelector>
       <div class="users">
         <UserDisplayItem v-for="user in users" v-bind:user="user" @userID="userID => selectUser(userID)"

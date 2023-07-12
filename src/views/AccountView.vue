@@ -92,9 +92,8 @@ async function deleteReservation() {
       <input type="button" value="Change Name" @click="updateUser()">
     </div>
     <div class="reservation">
-      <h1>Reservations</h1>
+      <h2 v-if="selectedReservationId !== -1">Reservations</h2>
       <div>
-        <h2 v-if="selectedReservationId !== -1"></h2>
         <input @click="deleteReservation()" v-if="(selectedReservationId !== -1)" class="delete"
                type="button" :value="'Delete: ' + selectedReservationId">
       </div>

@@ -9,10 +9,10 @@ import {useUserDataStore} from "@/stores/userDataStore";
 import {useRouter} from "vue-router";
 
 const userDataStore = useUserDataStore();
-const vorname = ref("luca");
-const nachname = ref("diegel");
-const username = ref("luca");
-const password = ref("admin");
+const vorname = ref("");
+const nachname = ref("");
+const username = ref("");
+const password = ref("");
 
 const router = useRouter();
 
@@ -39,6 +39,7 @@ async function register() {
     console.debug(e);
   }
   console.debug("Register OK");
+
   if (await userDataStore.login(username.value, password.value)) {
     console.debug("Login after RegisterOK");
     await router.push("/account")
